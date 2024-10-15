@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://fk54ih466pf0"]
+[gd_scene load_steps=10 format=3 uid="uid://fk54ih466pf0"]
 
 [ext_resource type="Script" path="res://puppet2.gd" id="1_ptsou"]
-[ext_resource type="Script" path="res://puppet_camera.gd" id="2_iihm5"]
 [ext_resource type="Texture2D" uid="uid://debmyeuopxq0h" path="res://test2/PNG/Dark/texture_01.png" id="2_r1xhf"]
 [ext_resource type="PackedScene" uid="uid://cofge8imxv5w" path="res://coin.tscn" id="3_fjtdt"]
 
@@ -25,8 +24,6 @@ height = 1.0
 [sub_resource type="SphereMesh" id="SphereMesh_6s02m"]
 height = 0.4
 is_hemisphere = true
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_81mup"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_usj6b"]
 albedo_texture = ExtResource("2_r1xhf")
@@ -67,13 +64,7 @@ mesh = SubResource("CylinderMesh_vhavg")
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
 mesh = SubResource("SphereMesh_6s02m")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="Puppet"]
-top_level = true
-shape = SubResource("SphereShape3D_81mup")
-spring_length = 7.0
-script = ExtResource("2_iihm5")
-
-[node name="Camera3D" type="Camera3D" parent="Puppet/SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="Puppet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.23303, 5.53541)
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
@@ -92,15 +83,14 @@ use_collision = true
 size = Vector3(19.4645, 7.46729, 15.4477)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9397, 4.91629, 6.92379)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12122, 2.46783, -5.07654)
 use_collision = true
-size = Vector3(20.6205, 10.8326, 12.4723)
+size = Vector3(12.8533, 5.93567, 6.0752)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.4652, 5.62402, 9.5911)
-operation = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0933, 2.46783, -27.3547)
 use_collision = true
-size = Vector3(12.476, 6.18265, 35.1074)
+size = Vector3(12.8533, 5.93567, 6.0752)
 
 [node name="Coin" parent="." instance=ExtResource("3_fjtdt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.4954, -4.76837e-07, 9.76629)

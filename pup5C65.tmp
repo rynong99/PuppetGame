@@ -70,7 +70,7 @@ mesh = SubResource("SphereMesh_6s02m")
 [node name="SpringArm3D" type="SpringArm3D" parent="Puppet"]
 top_level = true
 shape = SubResource("SphereShape3D_81mup")
-spring_length = 7.0
+spring_length = 10.0
 script = ExtResource("2_iihm5")
 
 [node name="Camera3D" type="Camera3D" parent="Puppet/SpringArm3D"]

@@ -17,31 +17,28 @@ func _ready():
 func _physics_process(delta):
 	
 	if detect_spin(delta) != 0:
-		print("spinning")
 		velocity.y = lerp(velocity.y, JUMP_VELOCITY, delta * 50)
-		move_and_slide()
 	else:
+
 		var tilt = Input.get_axis("arm_right","arm_left")
 		if tilt < -tilt_threshold:
 			rotation.y -= delta	* 5
 		elif tilt > tilt_threshold:
 			rotation.y += delta	* 5
-
-	
+		
+	if detect_wiggling(delta):
+		velocity = velocity.move_toward(Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * SPEED, delta * 50)
+	else:
+		velocity.x = lerp(velocity.x, 0.0, delta * 30)
+		velocity.z = lerp(velocity.z, 0.0, delta * 30)
+			
 	if not is_on_floor():
-		velocity.y += get_gravity().y * delta * 0.5
-
+			velocity.y += get_gravity().y * delta
+	
 	body.rotation.z = Input.get_axis("arm_right", "arm_left") * copy_amount
 	body.rotation.x = Input.get_axis("arm_forward", "arm_back") * copy_amount
 
 	head_top.rotation.x = remap(Input.get_action_strength("mouth"), 0, 1, 0, 1.3)
-
-	
-	if detect_wiggling(delta):
-		velocity = Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * SPEED
-	else:
-		velocity.x = 0
-		velocity.z = 0
 	
 	move_and_slide()
 
