@@ -1,0 +1,94 @@
+[gd_scene load_steps=10 format=3 uid="uid://dgyixfjg0nqy"]
+
+[ext_resource type="Script" path="res://puppet_test.gd" id="1_kr2gv"]
+[ext_resource type="Shader" path="res://bubble_viewport.gdshader" id="2_y0jq5"]
+[ext_resource type="Script" path="res://bullet_spawner.gd" id="3_gqdxe"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_o5a5k"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 3.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_g5p23"]
+radius = 0.6
+height = 0.7
+is_hemisphere = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sw3vu"]
+top_radius = 0.0
+bottom_radius = 0.2
+height = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_26sms"]
+height = 0.4
+is_hemisphere = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e7fbe"]
+render_priority = 0
+shader = ExtResource("2_y0jq5")
+shader_parameter/radius = 0.13
+shader_parameter/feather = 0.05
+shader_parameter/center = Vector2(0.5, 0.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_aqpkj"]
+top_radius = 0.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Puppet" type="Node3D" parent="."]
+script = ExtResource("1_kr2gv")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Puppet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48091, 0)
+mesh = SubResource("CylinderMesh_o5a5k")
+
+[node name="Head" type="Marker3D" parent="Puppet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="HeadTop" type="MeshInstance3D" parent="Puppet/Head"]
+mesh = SubResource("SphereMesh_g5p23")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Puppet/Head/HeadTop"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.154483, -0.962484)
+mesh = SubResource("CylinderMesh_sw3vu")
+
+[node name="HeadBottom" type="MeshInstance3D" parent="Puppet/Head"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+mesh = SubResource("SphereMesh_26sms")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.39656, 5.07569)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163216, 0, -5.76996)
+size = Vector3(36.8768, 1, 27.8204)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_e7fbe")
+offset_left = 823.0
+offset_top = 327.0
+offset_right = 1123.0
+offset_bottom = 627.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(300, 300)
+render_target_update_mode = 4
+
+[node name="FrontCam" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.845383, 0, -0.534161, 0, 1, 0, 0.534161, 0, -0.845383, -2.88858, 3.54972, -5.84263)
+
+[node name="BulletSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.13301, -8.95384)
+visible = false
+script = ExtResource("3_gqdxe")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BulletSpawner"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_aqpkj")

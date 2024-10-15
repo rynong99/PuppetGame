@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7xvaqhafdblm"]
+
+[ext_resource type="Script" path="res://test2/projectile_spawner.gd" id="2_kx40k"]
+[ext_resource type="Script" path="res://test2/blocker.gd" id="2_y5r63"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kxpqm"]
+size = Vector3(13.8242, 9.58301, 2.75439)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kcqgl"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_h4wbf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3gusl"]
+transparency = 1
+albedo_color = Color(1, 0.0705882, 1, 0.439216)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.66931)
+shape = SubResource("BoxShape3D_kxpqm")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0474328, -4.11083)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.44812, -12.6105)
+size = Vector3(8, 0.248176, 34)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -201.0
+offset_top = 36.0
+offset_right = 201.0
+offset_bottom = 63.0
+grow_horizontal = 2
+max_value = 10.0
+
+[node name="Label" type="Label" parent="UI/HealthBar"]
+layout_mode = 0
+offset_left = -3.0
+offset_top = -34.0
+offset_right = 37.0
+offset_bottom = -11.0
+text = "Score: 0"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.989016, 0.147809, 0, -0.147809, 0.989016, 0, 0.44, -0.115)
+
+[node name="ProjectileSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19.2942)
+script = ExtResource("2_kx40k")
+spawn_area_width = 1.0
+spawn_area_height = 0.8
+fire_rate = 1.0
+
+[node name="Blocker" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0104586, 0, -2.61616)
+script = ExtResource("2_y5r63")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Blocker"]
+shape = SubResource("SphereShape3D_kcqgl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Blocker"]
+mesh = SubResource("SphereMesh_h4wbf")
+surface_material_override/0 = SubResource("StandardMaterial3D_3gusl")
+
+[connection signal="body_entered" from="Area3D" to="ProjectileSpawner" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="Blocker" to="Blocker" method="_on_body_entered"]

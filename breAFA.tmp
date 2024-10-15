@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7xvaqhafdblm"]
+
+[ext_resource type="Shader" path="res://enviroment_test.gdshader" id="1_fgbhm"]
+[ext_resource type="Script" path="res://projectile_spawner.gd" id="2_kx40k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kxpqm"]
+size = Vector3(13.8242, 9.58301, 2.75439)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_frd8l"]
+render_priority = 0
+shader = ExtResource("1_fgbhm")
+shader_parameter/particles_anim_h_frames = null
+shader_parameter/particles_anim_v_frames = null
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.66931)
+shape = SubResource("BoxShape3D_kxpqm")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+visible = false
+material_override = SubResource("ShaderMaterial_frd8l")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -201.0
+offset_top = 36.0
+offset_right = 201.0
+offset_bottom = 63.0
+grow_horizontal = 2
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.11533)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+
+[node name="ProjectileSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+script = ExtResource("2_kx40k")
+spawn_area_width = null
+spawn_area_height = null
+fire_rate = null
