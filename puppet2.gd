@@ -9,17 +9,27 @@ const JUMP_VELOCITY = 4.5
 
 @onready var body = $Body
 @onready var head_top = $Body/Neck/Head/HeadTop
+@onready var head = $Body/Neck/Head
+@onready var face_cam = $Body/Neck/Head/SubViewportContainer/SubViewport/FaceCam
 
+var face_cam_pos_offset = Vector3(0,0,-2)
+var face_cam_rot_offset = Vector3(0,-180,0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 	
 func _physics_process(delta):
+	face_cam.global_position = face_cam.global_position.move_toward(head.global_position + face_cam_pos_offset.rotated(Vector3.UP, head.global_rotation.y).rotated(Vector3.RIGHT, head.global_rotation.x), delta * 20)
+	var x_rot = global_rotation.x
+	face_cam.look_at(head.global_position)
+	global_rotation.x = x_rot
+	
 	
 	if detect_spin(delta) != 0:
+		$SpinParticles.emitting = true
 		velocity.y = lerp(velocity.y, JUMP_VELOCITY, delta * 50)
 	else:
-
+		$SpinParticles.emitting = false
 		var tilt = Input.get_axis("arm_right","arm_left")
 		if tilt < -tilt_threshold:
 			rotation.y -= delta	* 5

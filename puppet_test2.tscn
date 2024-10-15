@@ -1,11 +1,33 @@
-[gd_scene load_steps=12 format=3 uid="uid://fk54ih466pf0"]
+[gd_scene load_steps=20 format=3 uid="uid://fk54ih466pf0"]
 
 [ext_resource type="Script" path="res://puppet2.gd" id="1_ptsou"]
+[ext_resource type="Material" uid="uid://bj2nnpuatwkts" path="res://puppet_material.tres" id="2_cuvpr"]
 [ext_resource type="Script" path="res://puppet_camera.gd" id="2_iihm5"]
 [ext_resource type="Texture2D" uid="uid://debmyeuopxq0h" path="res://test2/PNG/Dark/texture_01.png" id="2_r1xhf"]
+[ext_resource type="Shader" path="res://tornado.gdshader" id="3_745ga"]
 [ext_resource type="PackedScene" uid="uid://cofge8imxv5w" path="res://coin.tscn" id="3_fjtdt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o40g3"]
+
+[sub_resource type="Curve" id="Curve_aeevc"]
+_data = [Vector2(0, 0.0357933), 0.0, 0.0, 0, 0, Vector2(0.238569, 0.549077), 0.0965167, 0.0965167, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_eejb6"]
+curve = SubResource("Curve_aeevc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lkjqf"]
+shader = ExtResource("3_745ga")
+shader_parameter/tangent_velocity = 10.0
+shader_parameter/upward_speed = 10.0
+shader_parameter/base_radius = 2.0
+shader_parameter/profile = SubResource("CurveTexture_eejb6")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ka3hs"]
+radius = 0.2
+height = 0.2
+radial_segments = 4
+rings = 1
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_k5s8d"]
 top_radius = 0.3
@@ -13,6 +35,7 @@ bottom_radius = 0.3
 height = 1.5
 
 [sub_resource type="SphereMesh" id="SphereMesh_3dc8p"]
+material = ExtResource("2_cuvpr")
 radius = 0.6
 height = 0.7
 is_hemisphere = true
@@ -21,6 +44,17 @@ is_hemisphere = true
 top_radius = 0.0
 bottom_radius = 0.2
 height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smxan"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_y4bgv"]
+material = SubResource("StandardMaterial3D_smxan")
+radius = 0.1
+height = 0.2
+radial_segments = 4
+rings = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_6s02m"]
 height = 0.4
@@ -45,10 +79,19 @@ script = ExtResource("1_ptsou")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_o40g3")
 
+[node name="SpinParticles" type="GPUParticles3D" parent="Puppet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.302057, 0)
+cast_shadow = 0
+emitting = false
+amount = 16
+process_material = SubResource("ShaderMaterial_lkjqf")
+draw_pass_1 = SubResource("SphereMesh_ka3hs")
+
 [node name="Body" type="Marker3D" parent="Puppet"]
 
 [node name="Neck" type="MeshInstance3D" parent="Puppet/Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.881335, 0)
+material_override = ExtResource("2_cuvpr")
 mesh = SubResource("CylinderMesh_k5s8d")
 skeleton = NodePath("../..")
 
@@ -63,9 +106,31 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.1
 visible = false
 mesh = SubResource("CylinderMesh_vhavg")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Puppet/Body/Neck/Head/HeadTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.313441, 0.437148, -0.42326)
+mesh = SubResource("SphereMesh_y4bgv")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Puppet/Body/Neck/Head/HeadTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.336756, 0.447856, -0.42326)
+mesh = SubResource("SphereMesh_y4bgv")
+
 [node name="HeadBottom" type="MeshInstance3D" parent="Puppet/Body/Neck/Head"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+material_override = ExtResource("2_cuvpr")
 mesh = SubResource("SphereMesh_6s02m")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Puppet/Body/Neck/Head"]
+offset_left = 876.0
+offset_top = 379.0
+offset_right = 1091.0
+offset_bottom = 602.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Puppet/Body/Neck/Head/SubViewportContainer"]
+size = Vector2i(215, 223)
+
+[node name="FaceCam" type="Camera3D" parent="Puppet/Body/Neck/Head/SubViewportContainer/SubViewport"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.046, -1.359)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="Puppet"]
 top_level = true
@@ -107,3 +172,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.4954, -4.76837e-07, 9.766
 
 [node name="Coin2" parent="." instance=ExtResource("3_fjtdt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.73513, 0, 15.1813)
+
+[node name="SubViewport" type="SubViewport" parent="."]
