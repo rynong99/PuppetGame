@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://fk54ih466pf0"]
+[gd_scene load_steps=20 format=3 uid="uid://fk54ih466pf0"]
 
 [ext_resource type="Script" path="res://puppet2.gd" id="1_ptsou"]
 [ext_resource type="Material" uid="uid://bj2nnpuatwkts" path="res://puppet_material.tres" id="2_cuvpr"]
@@ -6,21 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://debmyeuopxq0h" path="res://test2/PNG/Dark/texture_01.png" id="2_r1xhf"]
 [ext_resource type="Shader" path="res://tornado.gdshader" id="3_745ga"]
 [ext_resource type="PackedScene" uid="uid://cofge8imxv5w" path="res://coin.tscn" id="3_fjtdt"]
-[ext_resource type="Script" path="res://hurtbox.gd" id="7_u06ul"]
-[ext_resource type="Script" path="res://death_area.gd" id="8_rnvxy"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bth4r"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-
-[sub_resource type="Sky" id="Sky_qkmkx"]
-sky_material = SubResource("ProceduralSkyMaterial_bth4r")
-
-[sub_resource type="Environment" id="Environment_460fo"]
-background_mode = 2
-sky = SubResource("Sky_qkmkx")
-tonemap_mode = 2
-glow_enabled = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o40g3"]
 
@@ -81,32 +66,13 @@ is_hemisphere = true
 albedo_texture = ExtResource("2_r1xhf")
 uv1_triplanar = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_66ktg"]
-albedo_color = Color(0.81, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_i7xns"]
-material = SubResource("StandardMaterial3D_66ktg")
-size = Vector3(30, 1, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_wipgh"]
-size = Vector3(30, 1.1, 1.1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_xcqjo"]
-size = Vector3(30, 1, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_hna23"]
-size = Vector3(341.186, 45.1582, 353.475)
-
 [node name="Node3D" type="Node3D"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_460fo")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Puppet" type="CharacterBody3D" parent="." groups=["puppet"]]
+[node name="Puppet" type="CharacterBody3D" parent="."]
 script = ExtResource("1_ptsou")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Puppet"]
@@ -177,17 +143,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0921067, 0)
 [node name="SpringArm3D" type="SpringArm3D" parent="Puppet"]
 top_level = true
 shape = SubResource("SphereShape3D_81mup")
-spring_length = 5.0
+spring_length = 7.0
 script = ExtResource("2_iihm5")
 
 [node name="Camera3D" type="Camera3D" parent="Puppet/SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.23303, 5.53541)
 
 [node name="ScoreLabel" type="Label" parent="Puppet"]
-offset_left = 17.0
-offset_top = 10.0
-offset_right = 190.0
-offset_bottom = 45.0
+offset_left = 911.0
+offset_top = 331.0
+offset_right = 1084.0
+offset_bottom = 366.0
 theme_override_font_sizes/font_size = 25
 text = "Score: 000"
 
@@ -196,19 +162,9 @@ material_override = SubResource("StandardMaterial3D_usj6b")
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4226, -5.91895, 9.68825)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4226, -5.91895, 118.886)
 use_collision = true
-size = Vector3(42.3677, 11.8379, 77.2534)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.7037, 4.36126, -20.4474)
-use_collision = true
-size = Vector3(42.3677, 32.3983, 16.9822)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.0086, -3.3574, 47.777)
-use_collision = true
-size = Vector3(42.3677, 16.961, 42.4375)
+size = Vector3(42.3677, 11.8379, 435.632)
 
 [node name="Coin" parent="." instance=ExtResource("3_fjtdt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.4954, -4.76837e-07, 9.76629)
@@ -217,28 +173,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.4954, -4.76837e-07, 9.766
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.73513, 0, 15.1813)
 
 [node name="SubViewport" type="SubViewport" parent="."]
-
-[node name="Hurtbox3" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -19.8511, 0.625927, -78.0299)
-script = ExtResource("7_u06ul")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Hurtbox3"]
-mesh = SubResource("BoxMesh_i7xns")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox3"]
-shape = SubResource("BoxShape3D_wipgh")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Hurtbox3"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox3/StaticBody3D"]
-shape = SubResource("BoxShape3D_xcqjo")
-
-[node name="DeathArea" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -54.1909, 0)
-script = ExtResource("8_rnvxy")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DeathArea"]
-shape = SubResource("BoxShape3D_hna23")
-
-[connection signal="body_entered" from="Hurtbox3" to="Hurtbox3" method="_on_body_entered"]
-[connection signal="body_entered" from="DeathArea" to="DeathArea" method="_on_body_entered"]

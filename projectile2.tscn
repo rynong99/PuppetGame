@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://j68qpxbltbsy"]
+
+[ext_resource type="Script" path="res://character_body_3d.gd" id="1_il5b8"]
+
+[node name="Projectile2" type="Area3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("1_il5b8")

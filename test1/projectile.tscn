@@ -8,8 +8,11 @@ radius = 0.2
 [sub_resource type="SphereMesh" id="SphereMesh_fiqru"]
 radius = 0.2
 height = 0.4
+radial_segments = 8
+rings = 4
 
 [node name="RigidBody3D" type="RigidBody3D"]
+collision_layer = 0
 script = ExtResource("1_6qht5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

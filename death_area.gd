@@ -12,7 +12,5 @@ func _process(delta):
 
 
 func _on_body_entered(body:Node3D):
-	if body.is_in_group("puppet"):
-		body.score += 100
-		queue_free()
+	get_tree().reload_current_scene()
 	pass # Replace with function body.

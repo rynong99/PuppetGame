@@ -1,0 +1,157 @@
+[gd_scene load_steps=17 format=3 uid="uid://bsim2o6t2vs8c"]
+
+[ext_resource type="Script" path="res://puppet_shooter2.gd" id="1_48wmd"]
+[ext_resource type="Script" path="res://shooting_test.gd" id="1_ny53o"]
+[ext_resource type="Material" uid="uid://bj2nnpuatwkts" path="res://puppet_material.tres" id="3_kcsh0"]
+[ext_resource type="Texture2D" uid="uid://debmyeuopxq0h" path="res://test2/PNG/Dark/texture_01.png" id="5_asp8j"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iayti"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_orlj8"]
+sky_material = SubResource("ProceduralSkyMaterial_iayti")
+
+[sub_resource type="Environment" id="Environment_cdsj2"]
+background_mode = 2
+sky = SubResource("Sky_orlj8")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_613r7"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gkjyg"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 1.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_0jaqt"]
+material = ExtResource("3_kcsh0")
+radius = 0.6
+height = 0.7
+is_hemisphere = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_s4qvm"]
+top_radius = 0.0
+bottom_radius = 0.2
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smxan"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_bqae8"]
+material = SubResource("StandardMaterial3D_smxan")
+radius = 0.1
+height = 0.2
+radial_segments = 4
+rings = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_jgwps"]
+height = 0.4
+is_hemisphere = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yorkp"]
+radius = 0.724661
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xe4w4"]
+albedo_texture = ExtResource("5_asp8j")
+uv1_triplanar = true
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_ny53o")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cdsj2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Puppet" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.482743, 0)
+script = ExtResource("1_48wmd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Puppet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_613r7")
+
+[node name="Body" type="Marker3D" parent="Puppet"]
+
+[node name="Neck" type="MeshInstance3D" parent="Puppet/Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.881335, 0)
+material_override = ExtResource("3_kcsh0")
+mesh = SubResource("CylinderMesh_gkjyg")
+skeleton = NodePath("../..")
+
+[node name="Head" type="Marker3D" parent="Puppet/Body/Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07765, 0)
+
+[node name="FaceCamMarker" type="Marker3D" parent="Puppet/Body/Neck/Head"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.087015, -1.55924)
+
+[node name="HeadTop" type="MeshInstance3D" parent="Puppet/Body/Neck/Head"]
+mesh = SubResource("SphereMesh_0jaqt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Puppet/Body/Neck/Head/HeadTop"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.154483, -0.962484)
+visible = false
+mesh = SubResource("CylinderMesh_s4qvm")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Puppet/Body/Neck/Head/HeadTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.313441, 0.437148, -0.42326)
+mesh = SubResource("SphereMesh_bqae8")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Puppet/Body/Neck/Head/HeadTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.336756, 0.447856, -0.42326)
+mesh = SubResource("SphereMesh_bqae8")
+
+[node name="HeadBottom" type="MeshInstance3D" parent="Puppet/Body/Neck/Head"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+material_override = ExtResource("3_kcsh0")
+mesh = SubResource("SphereMesh_jgwps")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Puppet/Body/Neck/Head"]
+offset_left = 876.0
+offset_top = 379.0
+offset_right = 1091.0
+offset_bottom = 602.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Puppet/Body/Neck/Head/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(215, 223)
+render_target_update_mode = 4
+
+[node name="FaceCam" type="Camera3D" parent="Puppet/Body/Neck/Head/SubViewportContainer/SubViewport"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.046, -1.55924)
+
+[node name="Area3D" type="Area3D" parent="Puppet/Body/Neck/Head"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Puppet/Body/Neck/Head/Area3D"]
+shape = SubResource("SphereShape3D_yorkp")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+material_override = SubResource("StandardMaterial3D_xe4w4")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.278, -5.91895, -5.58935)
+use_collision = true
+size = Vector3(91.8209, 11.8379, 13.8585)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7137, -0.171333, -5.58935)
+use_collision = true
+size = Vector3(16.6819, 23.3331, 13.8585)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7638, -0.171333, -5.58935)
+use_collision = true
+size = Vector3(16.6819, 23.3331, 13.8585)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7495, 4.35975)
+
+[node name="AmmoSpawner" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.53557, 2.01076)
