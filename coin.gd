@@ -1,18 +1,17 @@
 extends Area3D
 
+var text = "A"
 
-# Called when the node enters the scene tree for the first time.
+var points = 100
+
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
+	$Label3D.text = text
+	var tween = create_tween()
+	tween.tween_property($Label3D, "scale", Vector3(1, 1, 1), 0.1)
 
 func _on_body_entered(body:Node3D):
 	if body.is_in_group("puppet"):
-		body.score += 100
+		body.score += points
+		Global.num_letters_present -= 1
+		Global.letter_collected.emit(text, points, body.is_in_group("p1"))
 		queue_free()
-	pass # Replace with function body.

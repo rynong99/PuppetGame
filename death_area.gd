@@ -12,5 +12,6 @@ func _process(delta):
 
 
 func _on_body_entered(body:Node3D):
-	get_tree().reload_current_scene()
+	if body.has_method("reset_fall"):
+		body.reset_fall()
 	pass # Replace with function body.

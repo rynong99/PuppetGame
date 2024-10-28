@@ -1,0 +1,154 @@
+[gd_scene load_steps=20 format=4 uid="uid://fk54ih466pf0"]
+
+[ext_resource type="PackedScene" uid="uid://b2f6s3n6gmago" path="res://puppet.tscn" id="1_seifp"]
+[ext_resource type="Texture2D" uid="uid://debmyeuopxq0h" path="res://test2/PNG/Dark/texture_01.png" id="2_r1xhf"]
+[ext_resource type="Shader" path="res://test1/goop.gdshader" id="4_3eput"]
+[ext_resource type="Script" path="res://goo_mesh.gd" id="5_sudpa"]
+[ext_resource type="PackedScene" uid="uid://0tw47n3bxcob" path="res://blobs/goo_body.tscn" id="6_qsimv"]
+[ext_resource type="Script" path="res://death_area.gd" id="8_rnvxy"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bth4r"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_qkmkx"]
+sky_material = SubResource("ProceduralSkyMaterial_bth4r")
+
+[sub_resource type="Environment" id="Environment_460fo"]
+background_mode = 2
+sky = SubResource("Sky_qkmkx")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_usj6b"]
+albedo_texture = ExtResource("2_r1xhf")
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hna23"]
+size = Vector3(341.186, 45.1582, 353.475)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8hnss"]
+top_radius = 10.0
+bottom_radius = 10.0
+height = 7.81
+
+[sub_resource type="Gradient" id="Gradient_rsw8b"]
+offsets = PackedFloat32Array(0.183158, 0.454737, 0.797895, 1)
+colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_omvod"]
+frequency = 0.0539
+domain_warp_enabled = true
+domain_warp_amplitude = 50.0
+domain_warp_frequency = -0.035
+domain_warp_fractal_gain = -0.02
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b0lim"]
+seamless = true
+color_ramp = SubResource("Gradient_rsw8b")
+noise = SubResource("FastNoiseLite_omvod")
+
+[sub_resource type="Gradient" id="Gradient_qi5k8"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xigd1"]
+noise_type = 0
+frequency = 0.03
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 61.065
+domain_warp_frequency = 0.015
+domain_warp_fractal_lacunarity = 2.17
+domain_warp_fractal_gain = -0.275
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b4md1"]
+seamless = true
+as_normal_map = true
+bump_strength = 3.0
+color_ramp = SubResource("Gradient_qi5k8")
+noise = SubResource("FastNoiseLite_xigd1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mwqfk"]
+render_priority = 0
+shader = ExtResource("4_3eput")
+shader_parameter/blobColor = Color(0.278, 0.443, 0.012, 1)
+shader_parameter/attenuationConstant = 2.0
+shader_parameter/alphaCoef = 1.0
+shader_parameter/minAlpha = 0.9
+shader_parameter/indexOfRefraction = 0.95
+shader_parameter/refractionAlphaCutoff = 0.99
+shader_parameter/refractionLOD = 4.0
+shader_parameter/clearSkin = 0.25
+shader_parameter/refractOnEnter = true
+shader_parameter/normalDepth = 2.0
+shader_parameter/iridescenceSaturation = 1.0
+shader_parameter/iridescenceCoef = 2.0
+shader_parameter/floorHeight = -0.01
+shader_parameter/floorStickiness = 0.5
+shader_parameter/blobStickiness = 0.9
+shader_parameter/numBlobs = null
+shader_parameter/blobs = PackedVector4Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/noiseNorm = SubResource("NoiseTexture2D_b4md1")
+shader_parameter/iridescenceNoise = SubResource("NoiseTexture2D_b0lim")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_460fo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Puppet1" parent="." instance=ExtResource("1_seifp")]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+material_override = SubResource("StandardMaterial3D_usj6b")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4226, -5.91895, -8.19224)
+use_collision = true
+size = Vector3(42.3677, 11.8379, 41.4924)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.7037, 4.36126, -20.4474)
+use_collision = true
+size = Vector3(42.3677, 32.3983, 16.9822)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.0086, -3.3574, 47.777)
+use_collision = true
+size = Vector3(42.3677, 16.961, 42.4375)
+
+[node name="DeathArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -54.1909, 0)
+script = ExtResource("8_rnvxy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeathArea"]
+shape = SubResource("BoxShape3D_hna23")
+
+[node name="GooMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.75426, 1.01235, -18.4967)
+mesh = SubResource("CylinderMesh_8hnss")
+surface_material_override/0 = SubResource("ShaderMaterial_mwqfk")
+script = ExtResource("5_sudpa")
+
+[node name="RigidBody3D" parent="GooMesh" instance=ExtResource("6_qsimv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.894, 0)
+
+[node name="RigidBody3D2" parent="GooMesh" instance=ExtResource("6_qsimv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.894, 0)
+
+[node name="RigidBody3D3" parent="GooMesh" instance=ExtResource("6_qsimv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.894, 0)
+
+[node name="RigidBody3D4" parent="GooMesh" instance=ExtResource("6_qsimv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.894, 0)
+
+[node name="RigidBody3D5" parent="GooMesh" instance=ExtResource("6_qsimv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.894, 0)
+
+[node name="RigidBody3D6" parent="GooMesh" instance=ExtResource("6_qsimv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.894, 0)
+
+[connection signal="body_entered" from="DeathArea" to="DeathArea" method="_on_body_entered"]

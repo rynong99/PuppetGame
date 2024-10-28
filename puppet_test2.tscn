@@ -1,237 +1,131 @@
-[gd_scene load_steps=30 format=3 uid="uid://fk54ih466pf0"]
+[gd_scene load_steps=17 format=3 uid="uid://fk54ih466pf0"]
 
-[ext_resource type="Script" path="res://puppet2.gd" id="1_ptsou"]
-[ext_resource type="Material" uid="uid://bj2nnpuatwkts" path="res://puppet_material.tres" id="2_cuvpr"]
-[ext_resource type="Script" path="res://puppet_camera.gd" id="2_iihm5"]
+[ext_resource type="PackedScene" uid="uid://b2f6s3n6gmago" path="res://puppet.tscn" id="1_seifp"]
+[ext_resource type="Script" path="res://puppet_camera.gd" id="2_cymju"]
 [ext_resource type="Texture2D" uid="uid://debmyeuopxq0h" path="res://test2/PNG/Dark/texture_01.png" id="2_r1xhf"]
-[ext_resource type="Shader" path="res://tornado.gdshader" id="3_745ga"]
-[ext_resource type="PackedScene" uid="uid://cofge8imxv5w" path="res://coin.tscn" id="3_fjtdt"]
-[ext_resource type="Script" path="res://hurtbox.gd" id="7_u06ul"]
+[ext_resource type="Material" uid="uid://bx2jtegstbjmr" path="res://blobs/goo_test.tres" id="4_ing3d"]
+[ext_resource type="Script" path="res://blobs/blob_cam_mesh.gd" id="4_oug2j"]
+[ext_resource type="Script" path="res://blobs/goo_mesh.gd" id="5_sudpa"]
+[ext_resource type="Script" path="res://collectable_spawner.gd" id="8_1kdpx"]
 [ext_resource type="Script" path="res://death_area.gd" id="8_rnvxy"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bth4r"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_62ewp"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_qkmkx"]
-sky_material = SubResource("ProceduralSkyMaterial_bth4r")
+[sub_resource type="Sky" id="Sky_iflni"]
+sky_material = SubResource("ProceduralSkyMaterial_62ewp")
 
-[sub_resource type="Environment" id="Environment_460fo"]
+[sub_resource type="Environment" id="Environment_jtkbk"]
 background_mode = 2
-sky = SubResource("Sky_qkmkx")
+sky = SubResource("Sky_iflni")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o40g3"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_ilhgm"]
 
-[sub_resource type="Curve" id="Curve_aeevc"]
-_data = [Vector2(0, 0.0357933), 0.0, 0.0, 0, 0, Vector2(0.238569, 0.549077), 0.0965167, 0.0965167, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_btcme"]
-curve = SubResource("Curve_aeevc")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lkjqf"]
-shader = ExtResource("3_745ga")
-shader_parameter/tangent_velocity = 10.0
-shader_parameter/upward_speed = 10.0
-shader_parameter/base_radius = 2.0
-shader_parameter/profile = SubResource("CurveTexture_btcme")
-
-[sub_resource type="SphereMesh" id="SphereMesh_ka3hs"]
-radius = 0.2
-height = 0.2
-radial_segments = 4
-rings = 1
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_k5s8d"]
-top_radius = 0.3
-bottom_radius = 0.3
-height = 1.5
-
-[sub_resource type="SphereMesh" id="SphereMesh_3dc8p"]
-material = ExtResource("2_cuvpr")
-radius = 0.6
-height = 0.7
-is_hemisphere = true
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_vhavg"]
-top_radius = 0.0
-bottom_radius = 0.2
-height = 1.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5mbe1"]
-shading_mode = 0
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_y4bgv"]
-material = SubResource("StandardMaterial3D_5mbe1")
-radius = 0.1
-height = 0.2
-radial_segments = 4
-rings = 1
-
-[sub_resource type="SphereMesh" id="SphereMesh_6s02m"]
-height = 0.4
-is_hemisphere = true
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_81mup"]
+[sub_resource type="SphereMesh" id="SphereMesh_rh2jg"]
+flip_faces = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_usj6b"]
 albedo_texture = ExtResource("2_r1xhf")
 uv1_triplanar = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_66ktg"]
-albedo_color = Color(0.81, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_i7xns"]
-material = SubResource("StandardMaterial3D_66ktg")
-size = Vector3(30, 1, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_wipgh"]
-size = Vector3(30, 1.1, 1.1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_xcqjo"]
-size = Vector3(30, 1, 1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_hna23"]
 size = Vector3(341.186, 45.1582, 353.475)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8hnss"]
+top_radius = 10.0
+bottom_radius = 10.0
+height = 7.81
 
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_460fo")
+environment = SubResource("Environment_jtkbk")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Puppet" type="CharacterBody3D" parent="." groups=["puppet"]]
-script = ExtResource("1_ptsou")
+[node name="Puppet1" parent="." node_paths=PackedStringArray("blob_combiner") instance=ExtResource("1_seifp")]
+blob_combiner = NodePath("../GooMesh")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Puppet"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_o40g3")
-
-[node name="SpinParticles" type="GPUParticles3D" parent="Puppet"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.302057, 0)
-cast_shadow = 0
-emitting = false
-amount = 16
-process_material = SubResource("ShaderMaterial_lkjqf")
-draw_pass_1 = SubResource("SphereMesh_ka3hs")
-
-[node name="Body" type="Marker3D" parent="Puppet"]
-
-[node name="Neck" type="MeshInstance3D" parent="Puppet/Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.881335, 0)
-material_override = ExtResource("2_cuvpr")
-mesh = SubResource("CylinderMesh_k5s8d")
-skeleton = NodePath("../..")
-
-[node name="Head" type="Marker3D" parent="Puppet/Body/Neck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07765, 0)
-
-[node name="HeadTop" type="MeshInstance3D" parent="Puppet/Body/Neck/Head"]
-mesh = SubResource("SphereMesh_3dc8p")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Puppet/Body/Neck/Head/HeadTop"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.154483, -0.962484)
-visible = false
-mesh = SubResource("CylinderMesh_vhavg")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Puppet/Body/Neck/Head/HeadTop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.313441, 0.437148, -0.42326)
-mesh = SubResource("SphereMesh_y4bgv")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Puppet/Body/Neck/Head/HeadTop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.336756, 0.447856, -0.42326)
-mesh = SubResource("SphereMesh_y4bgv")
-
-[node name="HeadBottom" type="MeshInstance3D" parent="Puppet/Body/Neck/Head"]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
-material_override = ExtResource("2_cuvpr")
-mesh = SubResource("SphereMesh_6s02m")
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Puppet/Body/Neck/Head"]
-offset_left = 876.0
-offset_top = 379.0
-offset_right = 1091.0
-offset_bottom = 602.0
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="Puppet/Body/Neck/Head/SubViewportContainer"]
-handle_input_locally = false
-size = Vector2i(215, 223)
-render_target_update_mode = 4
-
-[node name="FaceCam" type="Camera3D" parent="Puppet/Body/Neck/Head/SubViewportContainer/SubViewport"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.046, -1.55924)
-
-[node name="FaceCamMarker" type="Marker3D" parent="Puppet/Body/Neck/Head"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.087015, -1.55924)
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Puppet/Body/Neck/Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0921067, 0)
-
-[node name="SpringArm3D" type="SpringArm3D" parent="Puppet"]
+[node name="SpringArm3D" type="SpringArm3D" parent="Puppet1"]
 top_level = true
-shape = SubResource("SphereShape3D_81mup")
+collision_mask = 5
+shape = SubResource("SphereShape3D_ilhgm")
 spring_length = 5.0
-script = ExtResource("2_iihm5")
+script = ExtResource("2_cymju")
 
-[node name="Camera3D" type="Camera3D" parent="Puppet/SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="Puppet1/SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.23303, 5.53541)
 
-[node name="ScoreLabel" type="Label" parent="Puppet"]
-offset_left = 17.0
-offset_top = 10.0
-offset_right = 190.0
-offset_bottom = 45.0
-theme_override_font_sizes/font_size = 25
-text = "Score: 000"
+[node name="BlobCamMesh" type="MeshInstance3D" parent="Puppet1/SpringArm3D/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.62765, 4.13348, -3.1786)
+visible = false
+mesh = SubResource("SphereMesh_rh2jg")
+surface_material_override/0 = ExtResource("4_ing3d")
+script = ExtResource("4_oug2j")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 material_override = SubResource("StandardMaterial3D_usj6b")
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4226, -5.91895, 9.68825)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.919, 0)
 use_collision = true
-size = Vector3(42.3677, 11.8379, 77.2534)
+size = Vector3(210, 11.8379, 220)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.7037, 4.36126, -20.4474)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 12.1621, -116.5)
 use_collision = true
-size = Vector3(42.3677, 32.3983, 16.9822)
+size = Vector3(283, 48, 17)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 12.1621, 113.5)
+use_collision = true
+size = Vector3(283, 48, 17)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -112.5, 12.1621, -1.49999)
+use_collision = true
+size = Vector3(283, 48, 17)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 108.5, 12.1621, -1.50001)
+use_collision = true
+size = Vector3(283, 48, 17)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 71.0559, 1.96758, 38.9289)
+use_collision = true
+size = Vector3(42.3677, 10, 39)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -79.9441, 1.96758, 49.1128)
+use_collision = true
+size = Vector3(88, 10, 47)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.0086, -3.3574, 47.777)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.19245, -0.3379, 47.777)
 use_collision = true
-size = Vector3(42.3677, 16.961, 42.4375)
+size = Vector3(66, 33, 42.4375)
 
-[node name="Coin" parent="." instance=ExtResource("3_fjtdt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.4954, -4.76837e-07, 9.76629)
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -70.8531, 1.96758, -38.3831)
+use_collision = true
+size = Vector3(42.3677, 10, 39)
 
-[node name="Coin2" parent="." instance=ExtResource("3_fjtdt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.73513, 0, 15.1813)
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 80.1469, 1.96758, -48.567)
+use_collision = true
+size = Vector3(88, 10, 47)
 
-[node name="SubViewport" type="SubViewport" parent="."]
-
-[node name="Hurtbox3" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -19.8511, 0.625927, -78.0299)
-script = ExtResource("7_u06ul")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Hurtbox3"]
-mesh = SubResource("BoxMesh_i7xns")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox3"]
-shape = SubResource("BoxShape3D_wipgh")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Hurtbox3"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox3/StaticBody3D"]
-shape = SubResource("BoxShape3D_xcqjo")
+[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.98958, -0.3379, -66.2312)
+use_collision = true
+size = Vector3(66, 33, 42.4375)
 
 [node name="DeathArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -54.1909, 0)
@@ -240,5 +134,18 @@ script = ExtResource("8_rnvxy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DeathArea"]
 shape = SubResource("BoxShape3D_hna23")
 
-[connection signal="body_entered" from="Hurtbox3" to="Hurtbox3" method="_on_body_entered"]
+[node name="GooMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_8hnss")
+surface_material_override/0 = ExtResource("4_ing3d")
+script = ExtResource("5_sudpa")
+
+[node name="CollectableSpawns" type="Node3D" parent="."]
+script = ExtResource("8_1kdpx")
+
+[node name="Marker3D" type="Marker3D" parent="CollectableSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.98046, 0, 14)
+
+[node name="Marker3D2" type="Marker3D" parent="CollectableSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 15.7752)
+
 [connection signal="body_entered" from="DeathArea" to="DeathArea" method="_on_body_entered"]

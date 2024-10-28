@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cofge8imxv5w"]
+[gd_scene load_steps=5 format=3 uid="uid://cofge8imxv5w"]
 
 [ext_resource type="Script" path="res://coin.gd" id="1_w771r"]
 [ext_resource type="Texture2D" uid="uid://c0ryibnt0q4t" path="res://icon.svg" id="2_ybli0"]
+[ext_resource type="FontFile" uid="uid://dbpbfdfhh41xf" path="res://Popcat.otf" id="3_ma6m8"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ah85x"]
-radius = 1.28654
+radius = 1.68273
 
 [node name="Coin" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_w771r")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -15,7 +18,17 @@ shape = SubResource("SphereShape3D_ah85x")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.16533, 0)
+visible = false
 billboard = 2
 texture = ExtResource("2_ybli0")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53656, 0)
+billboard = 2
+shaded = true
+text = "A"
+font = ExtResource("3_ma6m8")
+font_size = 1000
+outline_size = 127
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

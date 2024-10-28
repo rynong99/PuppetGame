@@ -11,13 +11,21 @@ config_version=5
 [application]
 
 config/name="AltArcadePuppets"
-run/main_scene="res://puppet_test2.tscn"
+run/main_scene="res://puppet_multiplayer_test.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://global.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+
+[global_group]
+
+projectile=""
 
 [input]
 
@@ -66,3 +74,9 @@ mouth={
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":4,"axis_value":1.0,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="Enviroment"
+3d_physics/layer_2="Puppets"
+3d_physics/layer_3="Vomit"

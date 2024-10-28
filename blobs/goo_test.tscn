@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=3 uid="uid://bt4ndjy2lgor4"]
+
+[ext_resource type="Material" uid="uid://bx2jtegstbjmr" path="res://blobs/goo_test.tres" id="1_xanc4"]
+[ext_resource type="Script" path="res://blobs/goo_mesh.gd" id="2_7881s"]
+[ext_resource type="PackedScene" uid="uid://0tw47n3bxcob" path="res://blobs/goo_body.tscn" id="3_thfen"]
+[ext_resource type="Script" path="res://blobs/blob_cam_mesh.gd" id="4_g4evl"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dclcu"]
+top_radius = 10.0
+bottom_radius = 10.0
+height = 7.81
+
+[sub_resource type="SphereMesh" id="SphereMesh_3rbnu"]
+flip_faces = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+use_collision = true
+size = Vector3(34.8145, 0.5, 51.7734)
+
+[node name="GooMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.00193, -0.0104743, 0.0052464, 0.0104927, 1.00194, -0.00349763, -0.00520952, 0.00355233, 1.00198, 0.743, -0.225, 0.068)
+visible = false
+mesh = SubResource("CylinderMesh_dclcu")
+surface_material_override/0 = ExtResource("1_xanc4")
+script = ExtResource("2_7881s")
+
+[node name="RigidBody3D" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D2" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D3" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D4" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D5" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D6" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D7" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D8" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D9" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D10" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D11" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D12" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D13" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D14" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D15" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D16" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D17" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D18" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D19" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="RigidBody3D20" parent="GooMesh" instance=ExtResource("3_thfen")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.23303, 5.53541)
+
+[node name="BlobCamMesh" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15584, -2.9959, -8.56462)
+mesh = SubResource("SphereMesh_3rbnu")
+surface_material_override/0 = ExtResource("1_xanc4")
+script = ExtResource("4_g4evl")

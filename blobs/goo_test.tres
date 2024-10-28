@@ -1,0 +1,61 @@
+[gd_resource type="ShaderMaterial" load_steps=8 format=4 uid="uid://bx2jtegstbjmr"]
+
+[ext_resource type="Shader" path="res://blobs/goop.gdshader" id="1_y1qxx"]
+
+[sub_resource type="Gradient" id="Gradient_i5xhi"]
+offsets = PackedFloat32Array(0.183158, 0.454737, 0.797895, 1)
+colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l0b68"]
+frequency = 0.0539
+domain_warp_enabled = true
+domain_warp_amplitude = 50.0
+domain_warp_frequency = -0.035
+domain_warp_fractal_gain = -0.02
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b0lim"]
+seamless = true
+color_ramp = SubResource("Gradient_i5xhi")
+noise = SubResource("FastNoiseLite_l0b68")
+
+[sub_resource type="Gradient" id="Gradient_0d18i"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8dajo"]
+noise_type = 0
+frequency = 0.03
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 61.065
+domain_warp_frequency = 0.015
+domain_warp_fractal_lacunarity = 2.17
+domain_warp_fractal_gain = -0.275
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b4md1"]
+seamless = true
+as_normal_map = true
+bump_strength = 3.0
+color_ramp = SubResource("Gradient_0d18i")
+noise = SubResource("FastNoiseLite_8dajo")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_y1qxx")
+shader_parameter/blobColor = Color(0, 0.439648, 0.480889, 1)
+shader_parameter/attenuationConstant = 6.23
+shader_parameter/alphaCoef = 0.9
+shader_parameter/minAlpha = 0.1
+shader_parameter/indexOfRefraction = 1.5
+shader_parameter/refractionAlphaCutoff = 0.95
+shader_parameter/refractionLOD = 4.0
+shader_parameter/clearSkin = 0.25
+shader_parameter/refractOnEnter = false
+shader_parameter/normalDepth = 1.0
+shader_parameter/iridescenceSaturation = 1.0
+shader_parameter/iridescenceCoef = -3.685
+shader_parameter/floorHeight = 0.0
+shader_parameter/floorStickiness = 0.375
+shader_parameter/blobStickiness = 0.9
+shader_parameter/numBlobs = 3
+shader_parameter/blobs = PackedVector4Array(0, 0.5, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/noiseNorm = SubResource("NoiseTexture2D_b4md1")
+shader_parameter/iridescenceNoise = SubResource("NoiseTexture2D_b0lim")

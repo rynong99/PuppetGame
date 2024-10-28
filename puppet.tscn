@@ -1,0 +1,133 @@
+[gd_scene load_steps=16 format=3 uid="uid://b2f6s3n6gmago"]
+
+[ext_resource type="Script" path="res://puppet2.gd" id="1_5k1ph"]
+[ext_resource type="Shader" path="res://tornado.gdshader" id="2_4nb6g"]
+[ext_resource type="Material" uid="uid://bj2nnpuatwkts" path="res://puppet_material.tres" id="3_ww2ia"]
+[ext_resource type="Texture2D" uid="uid://b28yxla8vjlg2" path="res://stamina_circle.png" id="4_xtywu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_56b5h"]
+
+[sub_resource type="Curve" id="Curve_aeevc"]
+_data = [Vector2(0, 0.0357933), 0.0, 0.0, 0, 0, Vector2(0.238569, 0.549077), 0.0965167, 0.0965167, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_btcme"]
+curve = SubResource("Curve_aeevc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lkjqf"]
+shader = ExtResource("2_4nb6g")
+shader_parameter/tangent_velocity = 10.0
+shader_parameter/upward_speed = 10.0
+shader_parameter/base_radius = 2.0
+shader_parameter/profile = SubResource("CurveTexture_btcme")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ka3hs"]
+radius = 0.2
+height = 0.2
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_k5s8d"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 1.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_3dc8p"]
+material = ExtResource("3_ww2ia")
+radius = 0.6
+height = 0.7
+is_hemisphere = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5mbe1"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_y4bgv"]
+material = SubResource("StandardMaterial3D_5mbe1")
+radius = 0.1
+height = 0.2
+radial_segments = 4
+rings = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_6s02m"]
+height = 0.4
+is_hemisphere = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3vcf5"]
+viewport_path = NodePath("StaminaBar")
+
+[node name="Puppet" type="CharacterBody3D" groups=["puppet"]]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_5k1ph")
+max_stamina = 3.0
+fire_rate = 0.1
+wiggle_threshold = 3
+spin_timeout = 0.7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_56b5h")
+
+[node name="SpinParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.302057, 0)
+cast_shadow = 0
+emitting = false
+amount = 16
+process_material = SubResource("ShaderMaterial_lkjqf")
+draw_pass_1 = SubResource("SphereMesh_ka3hs")
+
+[node name="Body" type="Marker3D" parent="."]
+
+[node name="Neck" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.881335, 0)
+material_override = ExtResource("3_ww2ia")
+mesh = SubResource("CylinderMesh_k5s8d")
+skeleton = NodePath("../..")
+
+[node name="Head" type="Marker3D" parent="Body/Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07765, 0)
+
+[node name="HeadTop" type="MeshInstance3D" parent="Body/Neck/Head"]
+mesh = SubResource("SphereMesh_3dc8p")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Body/Neck/Head/HeadTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.313441, 0.437148, -0.42326)
+mesh = SubResource("SphereMesh_y4bgv")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Body/Neck/Head/HeadTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.336756, 0.447856, -0.42326)
+mesh = SubResource("SphereMesh_y4bgv")
+
+[node name="HeadBottom" type="MeshInstance3D" parent="Body/Neck/Head"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+material_override = ExtResource("3_ww2ia")
+mesh = SubResource("SphereMesh_6s02m")
+
+[node name="FaceCamMarker" type="Marker3D" parent="Body/Neck/Head"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.087015, -1.55924)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer" parent="Body/Neck/Head"]
+
+[node name="StaminaSprite" type="Sprite3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -0.77564, 1.89985, 0.516962)
+layers = 2
+cast_shadow = 0
+billboard = 1
+texture = SubResource("ViewportTexture_3vcf5")
+
+[node name="StaminaBar" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(125, 125)
+
+[node name="Stamina" type="TextureProgressBar" parent="StaminaBar" groups=["puppet"]]
+offset_right = 640.0
+offset_bottom = 635.0
+scale = Vector2(0.2, 0.2)
+max_value = 3.0
+step = 0.0
+value = 3.0
+fill_mode = 5
+texture_under = ExtResource("4_xtywu")
+texture_progress = ExtResource("4_xtywu")
+tint_under = Color(0.295909, 0.245951, 0, 1)

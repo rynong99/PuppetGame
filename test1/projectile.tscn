@@ -1,22 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://dncr2x047rtdj"]
+[gd_scene load_steps=3 format=3 uid="uid://dncr2x047rtdj"]
 
 [ext_resource type="Script" path="res://test1/projectile.gd" id="1_6qht5"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r6pih"]
-radius = 0.2
+radius = 0.1
 
-[sub_resource type="SphereMesh" id="SphereMesh_fiqru"]
-radius = 0.2
-height = 0.4
-radial_segments = 8
-rings = 4
-
-[node name="RigidBody3D" type="RigidBody3D"]
-collision_layer = 0
+[node name="Projectile" type="RigidBody3D" groups=["projectile"]]
+collision_layer = 4
+collision_mask = 7
+contact_monitor = true
+max_contacts_reported = 3
+linear_damp = 0.5
 script = ExtResource("1_6qht5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_r6pih")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_fiqru")
