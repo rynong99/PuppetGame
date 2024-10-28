@@ -7,7 +7,8 @@ var points = 100
 func _ready():
 	$Label3D.text = text
 	var tween = create_tween()
-	tween.tween_property($Label3D, "scale", Vector3(1, 1, 1), 0.1)
+	var new_scale = remap(points, 0, 1000, 0.2, 1.0)
+	tween.tween_property($Label3D, "scale", Vector3(new_scale, new_scale, new_scale), 0.1)
 
 func _on_body_entered(body:Node3D):
 	if body.is_in_group("puppet"):

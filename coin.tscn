@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cofge8imxv5w"]
+[gd_scene load_steps=7 format=3 uid="uid://cofge8imxv5w"]
 
 [ext_resource type="Script" path="res://coin.gd" id="1_w771r"]
 [ext_resource type="Texture2D" uid="uid://c0ryibnt0q4t" path="res://icon.svg" id="2_ybli0"]
@@ -6,6 +6,19 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ah85x"]
 radius = 1.68273
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nhhhk"]
+render_priority = -1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.301961)
+disable_receive_shadows = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0lyrj"]
+material = SubResource("StandardMaterial3D_nhhhk")
+top_radius = 0.0
+bottom_radius = 1.0
+height = 50.0
 
 [node name="Coin" type="Area3D"]
 collision_layer = 0
@@ -30,5 +43,9 @@ text = "A"
 font = ExtResource("3_ma6m8")
 font_size = 1000
 outline_size = 127
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24.7002, 0)
+mesh = SubResource("CylinderMesh_0lyrj")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

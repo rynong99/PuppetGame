@@ -2,7 +2,7 @@ shader_type spatial;
 //render_mode depth_prepass_alpha, shadows_disabled;
 render_mode shadows_disabled;
 //render_mode depth_prepass_alpha;
-
+ 
 uniform sampler2D noiseNorm;
 uniform vec3 blobColor : source_color = vec3(.278, 0.443, .012);
 
