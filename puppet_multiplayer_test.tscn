@@ -256,14 +256,14 @@ script = ExtResource("2_s4678")
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 10, 1, 10)
 
 [node name="BlobCamMesh" type="MeshInstance3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/SpringArm3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.2579, 23.935, 30.8929)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.988297, 0.917702, 10.7738)
 visible = false
 mesh = SubResource("SphereMesh_8b54o")
 surface_material_override/0 = ExtResource("3_laxql")
 script = ExtResource("4_ti1an")
 
 [node name="BlobCamMesh2" type="MeshInstance3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/SpringArm3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.2579, 23.935, 30.8929)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.988297, 0.917702, 10.7738)
 visible = false
 mesh = SubResource("SphereMesh_8b54o")
 surface_material_override/0 = SubResource("ShaderMaterial_ho5jg")
@@ -278,7 +278,7 @@ render_target_update_mode = 4
 cull_mask = 1048573
 
 [node name="BlobCamMesh" type="MeshInstance3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/FaceViewport1/FaceCam"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.3823, 24.935, 23.6931)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68294, 1.9177, 3.0806)
 visible = false
 mesh = SubResource("SphereMesh_8sbmt")
 surface_material_override/0 = ExtResource("3_laxql")
@@ -321,14 +321,14 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 compositor = SubResource("Compositor_nh02e")
 
 [node name="BlobCamMesh" type="MeshInstance3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/SpringArm3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.2579, 22.935, -2.60866)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.988297, -0.0822978, 17.5105)
 visible = false
 mesh = SubResource("SphereMesh_8b54o")
 surface_material_override/0 = ExtResource("3_laxql")
 script = ExtResource("4_ti1an")
 
 [node name="BlobCamMesh2" type="MeshInstance3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/SpringArm3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.2579, 22.935, -2.60866)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.988297, -0.0822978, 17.5105)
 visible = false
 mesh = SubResource("SphereMesh_8b54o")
 surface_material_override/0 = SubResource("ShaderMaterial_ho5jg")
@@ -343,7 +343,7 @@ render_target_update_mode = 4
 cull_mask = 1048573
 
 [node name="BlobCamMesh" type="MeshInstance3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/FaceViewport2/FaceCam"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.3823, 24.935, 23.6931)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68294, 1.9177, 3.0806)
 visible = false
 mesh = SubResource("SphereMesh_8sbmt")
 surface_material_override/0 = SubResource("ShaderMaterial_ho5jg")
