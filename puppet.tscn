@@ -58,11 +58,13 @@ viewport_path = NodePath("StaminaBar")
 
 [node name="Puppet" type="CharacterBody3D" groups=["puppet"]]
 collision_layer = 2
-collision_mask = 7
+collision_mask = 23
 script = ExtResource("1_5k1ph")
 max_stamina = 3.0
+speed = 7.0
+tilt_threshold = 0.45
 fire_rate = 0.1
-wiggle_threshold = 3
+wiggle_timeout = 0.6
 spin_timeout = 0.7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
