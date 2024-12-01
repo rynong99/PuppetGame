@@ -92,7 +92,7 @@ func _physics_process(delta):
 	#if is_stamina_timeout:
 	#	if stamina >= stamina_timeout_time:
 	#		is_stamina_timeout = false
-
+	
 	stamina_bar.value = stamina
 	if stamina >= max_stamina:
 		stamina_bar.visible = false

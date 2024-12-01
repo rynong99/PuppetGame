@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b18uieps2pkth"]
+
+[ext_resource type="PackedScene" uid="uid://d1spi4sc1tac5" path="res://puppet_game_level.blend" id="1_hjmxp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_epnlf"]
+albedo_color = Color(0.321386, 0.192395, 0.338286, 1)
+
+[node name="puppet_game_level" instance=ExtResource("1_hjmxp")]
+
+[node name="floor_001" parent="." index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_epnlf")

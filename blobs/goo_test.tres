@@ -40,9 +40,9 @@ noise = SubResource("FastNoiseLite_8dajo")
 [resource]
 render_priority = 0
 shader = ExtResource("1_y1qxx")
-shader_parameter/blobColor = Color(0, 0.439648, 0.480889, 1)
+shader_parameter/blobColor = Color(0.937478, 0.208406, 5.77569e-07, 1)
 shader_parameter/attenuationConstant = 6.23
-shader_parameter/alphaCoef = 0.9
+shader_parameter/alphaCoef = 1.0
 shader_parameter/minAlpha = 0.1
 shader_parameter/indexOfRefraction = 1.5
 shader_parameter/refractionAlphaCutoff = 0.95
