@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=4 uid="uid://b2sqw8o714pr2"]
+
+[ext_resource type="Shader" path="res://raymarching.gdshader" id="1_jks33"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_jks33")
+shader_parameter/blob_count = 2
+shader_parameter/blobs = PackedVector4Array(6.29, 0, 0, 1.495, 4.3, 2.02, 0, 0.805)
+shader_parameter/blob_color = PackedFloat32Array(0, 1)
+shader_parameter/blob_color1 = Color(1, 0, 0, 1)
+shader_parameter/blob_color2 = Color(0, 0, 1, 1)
+shader_parameter/blob_blend_factor = 1.0
+shader_parameter/mesh_blend_factor = 1.0
+shader_parameter/color_blend_factor = 1.0
+shader_parameter/ambient_light = Color(0.458824, 0.00392157, 0.45098, 1)

@@ -1,21 +1,20 @@
-[gd_scene load_steps=35 format=4 uid="uid://dctv7biwq7y4r"]
+[gd_scene load_steps=24 format=3 uid="uid://6ddxo2nxyp3r"]
 
-[ext_resource type="Texture2D" uid="uid://dl2o2iim3t1u0" path="res://PuppetGame_SkyBox_noHills_checkeredFloor.jpg" id="1_fvgsv"]
-[ext_resource type="Script" path="res://death_area.gd" id="1_i1hmp"]
-[ext_resource type="Material" uid="uid://bx2jtegstbjmr" path="res://blobs/goo_test.tres" id="2_fg0aj"]
-[ext_resource type="Script" path="res://blobs/goo_mesh.gd" id="3_eutb2"]
-[ext_resource type="Shader" path="res://blobs/goop.gdshader" id="4_sk777"]
-[ext_resource type="Script" path="res://collectable_spawner.gd" id="6_sloxc"]
-[ext_resource type="Script" path="res://UI.gd" id="7_mhimd"]
-[ext_resource type="PackedScene" uid="uid://b2f6s3n6gmago" path="res://puppet.tscn" id="8_jnsu6"]
-[ext_resource type="Script" path="res://puppet_camera.gd" id="9_q5ipn"]
-[ext_resource type="Script" path="res://blobs/blob_cam_mesh.gd" id="10_yquew"]
-[ext_resource type="Texture2D" uid="uid://rf2ysp2aug6n" path="res://white-circle-free-png.webp" id="11_1etnq"]
-[ext_resource type="FontFile" uid="uid://dbpbfdfhh41xf" path="res://Popcat.otf" id="12_xyba5"]
-[ext_resource type="PackedScene" uid="uid://b18uieps2pkth" path="res://puppet_game_level.tscn" id="13_jgr1s"]
+[ext_resource type="Texture2D" uid="uid://dl2o2iim3t1u0" path="res://PuppetGame_SkyBox_noHills_checkeredFloor.jpg" id="1_kt8l3"]
+[ext_resource type="Script" path="res://death_area.gd" id="2_u7wbd"]
+[ext_resource type="Script" path="res://collectable_spawner.gd" id="6_h16cg"]
+[ext_resource type="PackedScene" uid="uid://co631qbvwi7x3" path="res://BlobCameraQuad.tscn" id="7_1f2b3"]
+[ext_resource type="Script" path="res://UI.gd" id="7_ftnhu"]
+[ext_resource type="PackedScene" uid="uid://b2f6s3n6gmago" path="res://puppet.tscn" id="8_yjl3p"]
+[ext_resource type="Script" path="res://puppet_camera.gd" id="9_fri4h"]
+[ext_resource type="Script" path="res://goo_balls.gd" id="11_fjwn1"]
+[ext_resource type="Texture2D" uid="uid://rf2ysp2aug6n" path="res://white-circle-free-png.webp" id="11_iln5e"]
+[ext_resource type="Material" uid="uid://b2sqw8o714pr2" path="res://new_blobs_mat.tres" id="12_mgngg"]
+[ext_resource type="FontFile" uid="uid://dbpbfdfhh41xf" path="res://Popcat.otf" id="12_mqt2r"]
+[ext_resource type="PackedScene" uid="uid://b18uieps2pkth" path="res://puppet_game_level.tscn" id="13_fu724"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qg3wy"]
-panorama = ExtResource("1_fvgsv")
+panorama = ExtResource("1_kt8l3")
 
 [sub_resource type="Sky" id="Sky_gcvuw"]
 sky_material = SubResource("PanoramaSkyMaterial_qg3wy")
@@ -29,79 +28,10 @@ glow_enabled = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_hna23"]
 size = Vector3(341.186, 45.1582, 353.475)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_wv0tg"]
-top_radius = 10.0
-bottom_radius = 10.0
-height = 7.81
-
-[sub_resource type="Gradient" id="Gradient_i5xhi"]
-offsets = PackedFloat32Array(0.183158, 0.454737, 0.797895, 1)
-colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_l0b68"]
-frequency = 0.0539
-domain_warp_enabled = true
-domain_warp_amplitude = 50.0
-domain_warp_frequency = -0.035
-domain_warp_fractal_gain = -0.02
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b0lim"]
-seamless = true
-color_ramp = SubResource("Gradient_i5xhi")
-noise = SubResource("FastNoiseLite_l0b68")
-
-[sub_resource type="Gradient" id="Gradient_0d18i"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_8dajo"]
-noise_type = 0
-frequency = 0.03
-domain_warp_enabled = true
-domain_warp_type = 1
-domain_warp_amplitude = 61.065
-domain_warp_frequency = 0.015
-domain_warp_fractal_lacunarity = 2.17
-domain_warp_fractal_gain = -0.275
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b4md1"]
-seamless = true
-as_normal_map = true
-bump_strength = 3.0
-color_ramp = SubResource("Gradient_0d18i")
-noise = SubResource("FastNoiseLite_8dajo")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ho5jg"]
-render_priority = 0
-shader = ExtResource("4_sk777")
-shader_parameter/blobColor = Color(0.095406, 0.23234, 1, 1)
-shader_parameter/attenuationConstant = 2.0
-shader_parameter/alphaCoef = 1.0
-shader_parameter/minAlpha = 0.1
-shader_parameter/indexOfRefraction = 1.5
-shader_parameter/refractionAlphaCutoff = 0.95
-shader_parameter/refractionLOD = 4.0
-shader_parameter/clearSkin = 0.01
-shader_parameter/refractOnEnter = false
-shader_parameter/normalDepth = 1.0
-shader_parameter/iridescenceSaturation = 1.0
-shader_parameter/iridescenceCoef = -3.685
-shader_parameter/floorHeight = 0.0
-shader_parameter/floorStickiness = 0.375
-shader_parameter/blobStickiness = 0.9
-shader_parameter/numBlobs = 3
-shader_parameter/blobs = PackedVector4Array(0, 0.5, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-shader_parameter/noiseNorm = SubResource("NoiseTexture2D_b4md1")
-shader_parameter/iridescenceNoise = SubResource("NoiseTexture2D_b0lim")
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ht0r"]
 albedo_color = Color(0.914941, 0.3671, 0.373832, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vchys"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_8b54o"]
-flip_faces = true
-
-[sub_resource type="SphereMesh" id="SphereMesh_8sbmt"]
-flip_faces = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g35uv"]
 albedo_color = Color(0.225834, 0.374978, 0.830186, 1)
@@ -129,25 +59,13 @@ shadow_enabled = true
 
 [node name="DeathArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -54.1909, 0)
-script = ExtResource("1_i1hmp")
+script = ExtResource("2_u7wbd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DeathArea"]
 shape = SubResource("BoxShape3D_hna23")
 
-[node name="GooMesh1" type="MeshInstance3D" parent="."]
-visible = false
-mesh = SubResource("CylinderMesh_wv0tg")
-surface_material_override/0 = ExtResource("2_fg0aj")
-script = ExtResource("3_eutb2")
-
-[node name="GooMesh2" type="MeshInstance3D" parent="."]
-visible = false
-mesh = SubResource("CylinderMesh_wv0tg")
-surface_material_override/0 = SubResource("ShaderMaterial_ho5jg")
-script = ExtResource("3_eutb2")
-
 [node name="CollectableSpawns" type="Node3D" parent="."]
-script = ExtResource("6_sloxc")
+script = ExtResource("6_h16cg")
 spawn_rate = 7.0
 
 [node name="Marker3D4" type="Marker3D" parent="CollectableSpawns"]
@@ -178,26 +96,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 13, 29)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 13, -29)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-script = ExtResource("7_mhimd")
+script = ExtResource("7_ftnhu")
 
 [node name="Puppet1Viewport" type="SubViewportContainer" parent="CanvasLayer"]
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_right = 640.0
+offset_bottom = 720.0
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/Puppet1Viewport"]
 handle_input_locally = false
 msaa_2d = 1
 msaa_3d = 1
 screen_space_aa = 1
-size = Vector2i(960, 1080)
+size = Vector2i(640, 720)
 render_target_update_mode = 4
 
-[node name="Puppet1" parent="CanvasLayer/Puppet1Viewport/SubViewport" node_paths=PackedStringArray("face_cam", "blob_combiner") groups=["p1"] instance=ExtResource("8_jnsu6")]
+[node name="Puppet1" parent="CanvasLayer/Puppet1Viewport/SubViewport" node_paths=PackedStringArray("face_cam", "blob_combiner") groups=["p1"] instance=ExtResource("8_yjl3p")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 15, 0, 15)
 p1 = true
 puppet_mat = SubResource("StandardMaterial3D_3ht0r")
 face_cam = NodePath("FaceViewport1/FaceCam")
-blob_combiner = NodePath("../../../../GooMesh1")
+blob_combiner = NodePath("../../../../GooBalls")
 spin_threshold = 2
 spin_timeout = 0.8
 
@@ -206,24 +124,10 @@ top_level = true
 collision_mask = 5
 shape = SubResource("SphereShape3D_vchys")
 spring_length = 5.0
-script = ExtResource("9_q5ipn")
+script = ExtResource("9_fri4h")
 
 [node name="Camera3D" type="Camera3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/SpringArm3D"]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 10, 1, 10)
-
-[node name="BlobCamMesh" type="MeshInstance3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/SpringArm3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.851964, 4.02409, 18.1063)
-visible = false
-mesh = SubResource("SphereMesh_8b54o")
-surface_material_override/0 = ExtResource("2_fg0aj")
-script = ExtResource("10_yquew")
-
-[node name="BlobCamMesh2" type="MeshInstance3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/SpringArm3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.851964, 4.02409, 18.1063)
-visible = false
-mesh = SubResource("SphereMesh_8b54o")
-surface_material_override/0 = SubResource("ShaderMaterial_ho5jg")
-script = ExtResource("10_yquew")
 
 [node name="FaceViewport1" type="SubViewport" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1"]
 handle_input_locally = false
@@ -233,27 +137,22 @@ render_target_update_mode = 4
 [node name="FaceCam" type="Camera3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/FaceViewport1"]
 cull_mask = 1048573
 
-[node name="BlobCamMesh" type="MeshInstance3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/FaceViewport1/FaceCam"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.20062, 5.02409, -3.40548)
-visible = false
-mesh = SubResource("SphereMesh_8sbmt")
-surface_material_override/0 = ExtResource("2_fg0aj")
-script = ExtResource("10_yquew")
+[node name="BlobCameraQuad" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/FaceViewport1/FaceCam" instance=ExtResource("7_1f2b3")]
 
 [node name="Puppet2Viewport" type="SubViewportContainer" parent="CanvasLayer"]
-offset_left = 960.0
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_left = 640.0
+offset_right = 1280.0
+offset_bottom = 720.0
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/Puppet2Viewport"]
 handle_input_locally = false
 msaa_2d = 1
 msaa_3d = 1
 screen_space_aa = 1
-size = Vector2i(960, 1080)
+size = Vector2i(640, 720)
 render_target_update_mode = 4
 
-[node name="Puppet2" parent="CanvasLayer/Puppet2Viewport/SubViewport" node_paths=PackedStringArray("face_cam", "blob_combiner") instance=ExtResource("8_jnsu6")]
+[node name="Puppet2" parent="CanvasLayer/Puppet2Viewport/SubViewport" node_paths=PackedStringArray("face_cam", "blob_combiner") instance=ExtResource("8_yjl3p")]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -15, 0, -15)
 puppet_mat = SubResource("StandardMaterial3D_g35uv")
 forward_input = "hand_up"
@@ -261,7 +160,7 @@ back_input = "hand_down"
 right_input = "hand_right"
 left_input = "hand_left"
 face_cam = NodePath("FaceViewport2/FaceCam")
-blob_combiner = NodePath("../../../../GooMesh2")
+blob_combiner = NodePath("../../../../GooBalls")
 spin_threshold = 2
 spin_timeout = 0.8
 
@@ -270,25 +169,11 @@ top_level = true
 collision_mask = 5
 shape = SubResource("SphereShape3D_vchys")
 spring_length = 5.0
-script = ExtResource("9_q5ipn")
+script = ExtResource("9_fri4h")
 
 [node name="Camera3D" type="Camera3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/SpringArm3D"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -10, 2, -10)
 compositor = SubResource("Compositor_nh02e")
-
-[node name="BlobCamMesh" type="MeshInstance3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/SpringArm3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.851964, 3.02409, 10.178)
-visible = false
-mesh = SubResource("SphereMesh_8b54o")
-surface_material_override/0 = ExtResource("2_fg0aj")
-script = ExtResource("10_yquew")
-
-[node name="BlobCamMesh2" type="MeshInstance3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/SpringArm3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.851964, 3.02409, 10.178)
-visible = false
-mesh = SubResource("SphereMesh_8b54o")
-surface_material_override/0 = SubResource("ShaderMaterial_ho5jg")
-script = ExtResource("10_yquew")
 
 [node name="FaceViewport2" type="SubViewport" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2"]
 handle_input_locally = false
@@ -298,21 +183,13 @@ render_target_update_mode = 4
 [node name="FaceCam" type="Camera3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/FaceViewport2"]
 cull_mask = 1048573
 
-[node name="BlobCamMesh" type="MeshInstance3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/FaceViewport2/FaceCam"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.20062, 5.02409, -3.40548)
-visible = false
-mesh = SubResource("SphereMesh_8sbmt")
-surface_material_override/0 = SubResource("ShaderMaterial_ho5jg")
-script = ExtResource("10_yquew")
-
 [node name="FaceCam1Texture" type="TextureRect" parent="CanvasLayer"]
 clip_children = 1
-custom_minimum_size = Vector2(398.65, 400)
-offset_left = 1440.0
-offset_top = 600.0
-offset_right = 1940.0
-offset_bottom = 1100.0
-texture = ExtResource("11_1etnq")
+offset_left = 950.0
+offset_top = 387.0
+offset_right = 1280.0
+offset_bottom = 717.0
+texture = ExtResource("11_iln5e")
 expand_mode = 3
 stretch_mode = 4
 
@@ -325,15 +202,15 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(200, 200)
 texture = SubResource("ViewportTexture_2iexp")
+metadata/_edit_lock_ = true
 
 [node name="FaceCam2Texture2" type="TextureRect" parent="CanvasLayer"]
 clip_children = 1
-custom_minimum_size = Vector2(398.65, 400)
-offset_left = 3.0
-offset_top = 600.0
-offset_right = 503.0
-offset_bottom = 1100.0
-texture = ExtResource("11_1etnq")
+offset_left = -1.0
+offset_top = 387.0
+offset_right = 399.0
+offset_bottom = 717.0
+texture = ExtResource("11_iln5e")
 expand_mode = 3
 stretch_mode = 4
 
@@ -346,18 +223,19 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(200, 200)
 texture = SubResource("ViewportTexture_dy1th")
+metadata/_edit_lock_ = true
 
 [node name="P1Score" type="RichTextLabel" parent="CanvasLayer"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -913.0
+offset_left = -658.0
 offset_top = 619.0
-offset_right = -511.205
+offset_right = -256.205
 offset_bottom = 751.0
 grow_horizontal = 2
 theme_override_constants/outline_size = 10
-theme_override_fonts/normal_font = ExtResource("12_xyba5")
+theme_override_fonts/normal_font = ExtResource("12_mqt2r")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center]0 pts[/center]"
@@ -366,13 +244,13 @@ text = "[center]0 pts[/center]"
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 520.0
-offset_top = 619.0
-offset_right = 924.0
-offset_bottom = 751.0
+offset_left = 242.0
+offset_top = 607.0
+offset_right = 646.0
+offset_bottom = 739.0
 grow_horizontal = 2
 theme_override_constants/outline_size = 10
-theme_override_fonts/normal_font = ExtResource("12_xyba5")
+theme_override_fonts/normal_font = ExtResource("12_mqt2r")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center]0 pts[/center]"
@@ -389,9 +267,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -78.755
-offset_top = -29.0
+offset_top = -60.0
 offset_right = 5.245
-offset_bottom = 29.0
+offset_bottom = -1.99997
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2.005, 2.005)
@@ -413,10 +291,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
-theme_override_fonts/normal_font = ExtResource("12_xyba5")
+theme_override_fonts/normal_font = ExtResource("12_mqt2r")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
 text = "[center]60"
+metadata/_edit_lock_ = true
 
 [node name="EventTextLabel" type="RichTextLabel" parent="CanvasLayer"]
 anchors_preset = 8
@@ -435,7 +314,7 @@ pivot_offset = Vector2(423, 63)
 size_flags_horizontal = 4
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 65
-theme_override_fonts/normal_font = ExtResource("12_xyba5")
+theme_override_fonts/normal_font = ExtResource("12_mqt2r")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center]Hello"
@@ -444,7 +323,7 @@ text = "[center]Hello"
 process_mode = 3
 wait_time = 3.0
 
-[node name="puppet_game_level2" parent="." instance=ExtResource("13_jgr1s")]
+[node name="puppet_game_level2" parent="." instance=ExtResource("13_fu724")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="puppet_game_level2"]
 collision_layer = 16
@@ -464,6 +343,13 @@ shape = SubResource("BoxShape3D_gy255")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="puppet_game_level2/StaticBody3D"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -35, 0, -1.5299e-06)
 shape = SubResource("BoxShape3D_gy255")
+
+[node name="BlobCameraQuad" parent="." instance=ExtResource("7_1f2b3")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="GooBalls" type="Node3D" parent="."]
+script = ExtResource("11_fjwn1")
+mat = ExtResource("12_mgngg")
 
 [connection signal="body_entered" from="DeathArea" to="DeathArea" method="_on_body_entered"]
 [connection signal="timeout" from="CanvasLayer/GameTimer" to="CanvasLayer" method="_on_game_timer_timeout"]

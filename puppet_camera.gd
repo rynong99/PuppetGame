@@ -14,7 +14,7 @@ func _process(delta):
 		update_camera(delta)
 
 func update_position(delta):
-	var target_position = puppet.global_transform.origin + Vector3(0, 3, 0)
+	var target_position = puppet.global_transform.origin + Vector3(0, 10, 0)
 	global_transform.origin.x = lerp(global_transform.origin.x, target_position.x, damping)
 	global_transform.origin.z = lerp(global_transform.origin.z, target_position.z, damping)
 	global_transform.origin.y = lerp(global_transform.origin.y, target_position.y, y_damping)

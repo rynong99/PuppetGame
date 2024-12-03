@@ -1,0 +1,321 @@
+[gd_scene load_steps=23 format=3 uid="uid://6ddxo2nxyp3r"]
+
+[ext_resource type="Texture2D" uid="uid://dl2o2iim3t1u0" path="res://PuppetGame_SkyBox_noHills_checkeredFloor.jpg" id="1_kt8l3"]
+[ext_resource type="Script" path="res://death_area.gd" id="2_u7wbd"]
+[ext_resource type="PackedScene" uid="uid://co631qbvwi7x3" path="res://BlobCameraQuad.tscn" id="7_1f2b3"]
+[ext_resource type="Script" path="res://UI.gd" id="7_ftnhu"]
+[ext_resource type="PackedScene" uid="uid://b2f6s3n6gmago" path="res://puppet.tscn" id="8_yjl3p"]
+[ext_resource type="Script" path="res://puppet_camera.gd" id="9_fri4h"]
+[ext_resource type="Script" path="res://goo_balls.gd" id="11_fjwn1"]
+[ext_resource type="Texture2D" uid="uid://rf2ysp2aug6n" path="res://white-circle-free-png.webp" id="11_iln5e"]
+[ext_resource type="Material" uid="uid://b2sqw8o714pr2" path="res://new_blobs_mat.tres" id="12_mgngg"]
+[ext_resource type="FontFile" uid="uid://dbpbfdfhh41xf" path="res://Popcat.otf" id="12_mqt2r"]
+[ext_resource type="PackedScene" uid="uid://b18uieps2pkth" path="res://puppet_game_level.tscn" id="13_fu724"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qg3wy"]
+panorama = ExtResource("1_kt8l3")
+
+[sub_resource type="Sky" id="Sky_gcvuw"]
+sky_material = SubResource("PanoramaSkyMaterial_qg3wy")
+
+[sub_resource type="Environment" id="Environment_bwckx"]
+background_mode = 2
+sky = SubResource("Sky_gcvuw")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hna23"]
+size = Vector3(341.186, 45.1582, 353.475)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ht0r"]
+albedo_color = Color(0.914941, 0.3671, 0.373832, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vchys"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g35uv"]
+albedo_color = Color(0.225834, 0.374978, 0.830186, 1)
+
+[sub_resource type="Compositor" id="Compositor_nh02e"]
+compositor_effects = Array[CompositorEffect]([null])
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2iexp"]
+viewport_path = NodePath("CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/FaceViewport2")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_dy1th"]
+viewport_path = NodePath("CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/FaceViewport1")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gy255"]
+size = Vector3(76, 53, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bwckx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="DeathArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -54.1909, 0)
+script = ExtResource("2_u7wbd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeathArea"]
+shape = SubResource("BoxShape3D_hna23")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("7_ftnhu")
+
+[node name="Puppet1Viewport" type="SubViewportContainer" parent="CanvasLayer"]
+offset_right = 640.0
+offset_bottom = 720.0
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Puppet1Viewport"]
+handle_input_locally = false
+msaa_2d = 1
+msaa_3d = 1
+screen_space_aa = 1
+size = Vector2i(640, 720)
+render_target_update_mode = 4
+
+[node name="Puppet1" parent="CanvasLayer/Puppet1Viewport/SubViewport" node_paths=PackedStringArray("face_cam", "blob_combiner") groups=["p1"] instance=ExtResource("8_yjl3p")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 15, 0, 15)
+p1 = true
+puppet_mat = SubResource("StandardMaterial3D_3ht0r")
+face_cam = NodePath("FaceViewport1/FaceCam")
+blob_combiner = NodePath("../../../../GooBalls")
+spin_threshold = 2
+spin_timeout = 0.8
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1"]
+top_level = true
+collision_mask = 5
+shape = SubResource("SphereShape3D_vchys")
+spring_length = 5.0
+script = ExtResource("9_fri4h")
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/SpringArm3D"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 10, 1, 10)
+
+[node name="FaceViewport1" type="SubViewport" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1"]
+handle_input_locally = false
+size = Vector2i(250, 250)
+render_target_update_mode = 4
+
+[node name="FaceCam" type="Camera3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/FaceViewport1"]
+cull_mask = 1048573
+
+[node name="Puppet2Viewport" type="SubViewportContainer" parent="CanvasLayer"]
+offset_left = 640.0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Puppet2Viewport"]
+handle_input_locally = false
+msaa_2d = 1
+msaa_3d = 1
+screen_space_aa = 1
+size = Vector2i(640, 720)
+render_target_update_mode = 4
+
+[node name="Puppet2" parent="CanvasLayer/Puppet2Viewport/SubViewport" node_paths=PackedStringArray("face_cam", "blob_combiner") instance=ExtResource("8_yjl3p")]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -15, 0, -15)
+puppet_mat = SubResource("StandardMaterial3D_g35uv")
+forward_input = "hand_up"
+back_input = "hand_down"
+right_input = "hand_right"
+left_input = "hand_left"
+face_cam = NodePath("FaceViewport2/FaceCam")
+blob_combiner = NodePath("../../../../GooBalls")
+spin_threshold = 2
+spin_timeout = 0.8
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2"]
+top_level = true
+collision_mask = 5
+shape = SubResource("SphereShape3D_vchys")
+spring_length = 5.0
+script = ExtResource("9_fri4h")
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/SpringArm3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -10, 2, -10)
+compositor = SubResource("Compositor_nh02e")
+
+[node name="FaceViewport2" type="SubViewport" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2"]
+handle_input_locally = false
+size = Vector2i(250, 250)
+render_target_update_mode = 4
+
+[node name="FaceCam" type="Camera3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/FaceViewport2"]
+cull_mask = 1048573
+
+[node name="FaceCam1Texture" type="TextureRect" parent="CanvasLayer"]
+clip_children = 1
+offset_left = 950.0
+offset_top = 387.0
+offset_right = 1280.0
+offset_bottom = 717.0
+texture = ExtResource("11_iln5e")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/FaceCam1Texture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(200, 200)
+texture = SubResource("ViewportTexture_2iexp")
+metadata/_edit_lock_ = true
+
+[node name="FaceCam2Texture2" type="TextureRect" parent="CanvasLayer"]
+clip_children = 1
+offset_left = -1.0
+offset_top = 387.0
+offset_right = 399.0
+offset_bottom = 717.0
+texture = ExtResource("11_iln5e")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/FaceCam2Texture2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(200, 200)
+texture = SubResource("ViewportTexture_dy1th")
+metadata/_edit_lock_ = true
+
+[node name="P1Score" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -658.0
+offset_top = 619.0
+offset_right = -256.205
+offset_bottom = 751.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("12_mqt2r")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "[center]0 pts[/center]"
+
+[node name="P2Score" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 242.0
+offset_top = 607.0
+offset_right = 646.0
+offset_bottom = 739.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("12_mqt2r")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "[center]0 pts[/center]"
+
+[node name="GameTimer" type="Timer" parent="CanvasLayer"]
+wait_time = 150.0
+one_shot = true
+autostart = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -78.755
+offset_top = -60.0
+offset_right = 5.245
+offset_bottom = -1.99997
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.005, 2.005)
+size_flags_horizontal = 4
+color = Color(0.856067, 0.856067, 0.856067, 1)
+
+[node name="TimeLeftLabel" type="RichTextLabel" parent="CanvasLayer/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.0
+offset_top = -31.0
+offset_right = 73.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("12_mqt2r")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]60"
+metadata/_edit_lock_ = true
+
+[node name="EventTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -423.0
+offset_top = -63.0
+offset_right = 423.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(423, 63)
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 65
+theme_override_fonts/normal_font = ExtResource("12_mqt2r")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "[center]Hello"
+
+[node name="RestartTimer" type="Timer" parent="CanvasLayer"]
+process_mode = 3
+wait_time = 3.0
+
+[node name="puppet_game_level2" parent="." instance=ExtResource("13_fu724")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="puppet_game_level2"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="puppet_game_level2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -35)
+shape = SubResource("BoxShape3D_gy255")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="puppet_game_level2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 35)
+shape = SubResource("BoxShape3D_gy255")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="puppet_game_level2/StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 35, 0, 1.5299e-06)
+shape = SubResource("BoxShape3D_gy255")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="puppet_game_level2/StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -35, 0, -1.5299e-06)
+shape = SubResource("BoxShape3D_gy255")
+
+[node name="BlobCameraQuad" parent="." instance=ExtResource("7_1f2b3")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="GooBalls" type="Node3D" parent="."]
+script = ExtResource("11_fjwn1")
+mat = ExtResource("12_mgngg")
+
+[connection signal="body_entered" from="DeathArea" to="DeathArea" method="_on_body_entered"]
+[connection signal="timeout" from="CanvasLayer/GameTimer" to="CanvasLayer" method="_on_game_timer_timeout"]
