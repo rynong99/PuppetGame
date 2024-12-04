@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://co631qbvwi7x3"]
+
+[ext_resource type="QuadMesh" uid="uid://xduqf6nmsbg4" path="res://new_blobs.tres" id="1_fs3yi"]
+
+[node name="BlobCameraQuad" type="MeshInstance3D"]
+transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, -0.601317)
+mesh = ExtResource("1_fs3yi")

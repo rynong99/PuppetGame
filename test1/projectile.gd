@@ -11,6 +11,7 @@ var p1_shot = false
 
 const MAX_MASS = 5.0
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var tween = create_tween()
@@ -22,9 +23,9 @@ func _physics_process(delta):
 	time_since_spawn += delta
 	if time_since_spawn > 5.0 and mass < 1.0:
 		queue_free()
-	collision_shape.scale = lerp(collision_shape.scale, Vector3.ZERO, delta * 0.05)
-	mass = lerp(mass, 0.5, delta * 0.1)
-	if collision_shape.scale.length() < 0.05:
+	collision_shape.scale = lerp(collision_shape.scale, Vector3.ZERO, delta * 0.1)
+	mass = lerp(mass, 0.05, delta * 0.1)
+	if collision_shape.scale.length() < 0.1:
 		queue_free()
 # Called when the projectile collides with another body.
 func _on_body_entered(body):
@@ -50,6 +51,7 @@ func absorb(other_projectile):
 	print(scale_change)
 	var tween = create_tween()
 	tween.tween_property(collision_shape, "scale", collision_shape.scale * scale_change, 0.1)
+	time_since_spawn = 0.0
 
 func attatch_to(other_projectile) -> bool:
 	var pinjoint = PinJoint3D.new()
@@ -60,24 +62,24 @@ func attatch_to(other_projectile) -> bool:
 	get_parent().add_child(pinjoint)
 	return true
 
-func combine_with(other_projectile) -> bool:
-	other_projectile.freeze = true
-	mass += other_projectile.mass
-	linear_velocity += other_projectile.linear_velocity
-	#freeze = true
-	for child in other_projectile.get_children():
-		var child_pos = child.global_position
-		child.get_parent().remove_child(child)
-		add_child(child)
-		child.global_position = child_pos
-		#move child position slightly closer to the center of the parent
-		child.position = child.position * 0.9
-		#tween child scale
-		var tween = create_tween()
-		tween.tween_property(child, "scale", child.scale * 2, 0.1)
-	#freeze = false
-	other_projectile.queue_free()
-	if mass >= MAX_MASS:
-		sleeping = true
-	return true
+# func combine_with(other_projectile) -> bool:
+# 	other_projectile.freeze = true
+# 	mass += other_projectile.mass
+# 	linear_velocity += other_projectile.linear_velocity
+# 	#freeze = true
+# 	for child in other_projectile.get_children():
+# 		var child_pos = child.global_position
+# 		child.get_parent().remove_child(child)
+# 		add_child(child)
+# 		child.global_position = child_pos
+# 		#move child position slightly closer to the center of the parent
+# 		child.position = child.position * 0.9
+# 		#tween child scale
+# 		var tween = create_tween()
+# 		tween.tween_property(child, "scale", child.scale * 2, 0.1)
+# 	#freeze = false
+# 	other_projectile.queue_free()
+# 	if mass >= MAX_MASS:
+# 		sleeping = true
+# 	return true
 	

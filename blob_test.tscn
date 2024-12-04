@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcauxsw8lkupb"]
+
+[ext_resource type="PackedScene" uid="uid://co631qbvwi7x3" path="res://BlobCameraQuad.tscn" id="1_y6wjt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4n8ll"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.927184, 0.374607, 0, -0.374607, 0.927184, 0, 1.785, 0)
+
+[node name="BlobCameraQuad" parent="Camera3D" instance=ExtResource("1_y6wjt")]
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.91896)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.717466, 0, -3.31102)
+mesh = SubResource("BoxMesh_4n8ll")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(6.665, 0, 0, 0, 1, 0, 0, 0, 10.085, 0.313182, -0.67635, -3.31102)
+mesh = SubResource("BoxMesh_4n8ll")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(41.285, 0, 0, 0, 13.535, 0, 0, 0, 10.085, 8.15497, 0.0060389, -11.9745)
+mesh = SubResource("BoxMesh_4n8ll")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.35695, 0, 0.934124, 0, 1, 0, -0.934124, 0, 0.35695, 0, 0, 0)
