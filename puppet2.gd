@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var score := 100
+var score := 0
 var health := 10
 
 @export var p1 := false
@@ -44,7 +44,7 @@ var vomit_time = 0.0
 @export var face_cam : Camera3D
 @onready var face_cam_marker = $Body/Neck/Head/FaceCamMarker
 @onready var audio_player = $Body/Neck/Head/AudioStreamPlayer3D
-@export var blob_combiner: Node3D
+@export var blob_combiner: MeshInstance3D
 
 #Temp projectile
 @onready var projectile = preload("res://test1/projectile.tscn")

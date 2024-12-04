@@ -11,28 +11,17 @@ config_version=5
 [application]
 
 config/name="AltArcadePuppets"
-run/main_scene="res://puppet_multiplayer2.tscn"
+run/main_scene="res://puppet_multiplayer_test.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-run/max_fps=30
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://global.gd"
-DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
-window/stretch/mode="viewport"
-window/dpi/allow_hidpi=false
-window/vsync/vsync_mode=2
-window/ios/allow_high_refresh_rate=false
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg")
+window/stretch/mode="canvas_items"
 
 [global_group]
 
@@ -63,25 +52,21 @@ arm_right={
 hand_left={
 "deadzone": 0.1,
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":0,"axis_value":-1.0,"script":null)
-, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":2,"axis_value":-1.0,"script":null)
 ]
 }
 hand_right={
 "deadzone": 0.1,
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":0,"axis_value":1.0,"script":null)
-, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":2,"axis_value":1.0,"script":null)
 ]
 }
 hand_up={
 "deadzone": 0.1,
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":1,"axis_value":-1.0,"script":null)
-, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":3,"axis_value":-1.0,"script":null)
 ]
 }
 hand_down={
 "deadzone": 0.1,
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":1,"axis_value":1.0,"script":null)
-, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":3,"axis_value":1.0,"script":null)
 ]
 }
 mouth={
