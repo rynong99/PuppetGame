@@ -1,19 +1,19 @@
-[gd_scene load_steps=22 format=3 uid="uid://bmkxfx85ovm1c"]
+[gd_scene load_steps=22 format=3 uid="uid://ckla10vwhv1hp"]
 
-[ext_resource type="Texture2D" uid="uid://dl2o2iim3t1u0" path="res://PuppetGame_SkyBox_noHills_checkeredFloor.jpg" id="1_kt8l3"]
-[ext_resource type="Script" path="res://death_area.gd" id="2_u7wbd"]
-[ext_resource type="PackedScene" path="res://BlobCameraQuad.tscn" id="7_1f2b3"]
-[ext_resource type="Script" path="res://UI.gd" id="7_ftnhu"]
-[ext_resource type="PackedScene" uid="uid://b2f6s3n6gmago" path="res://puppet.tscn" id="8_yjl3p"]
-[ext_resource type="Script" path="res://puppet_camera.gd" id="9_fri4h"]
-[ext_resource type="Script" path="res://goo_balls.gd" id="11_fjwn1"]
-[ext_resource type="Texture2D" uid="uid://rf2ysp2aug6n" path="res://white-circle-free-png.webp" id="11_iln5e"]
-[ext_resource type="PackedScene" uid="uid://c4fq6f1bj6cxo" path="res://MapObjects/bowl.tscn" id="11_k0ct5"]
-[ext_resource type="Material" path="res://new_blobs_mat.tres" id="12_mgngg"]
-[ext_resource type="FontFile" uid="uid://dbpbfdfhh41xf" path="res://Popcat.otf" id="12_mqt2r"]
+[ext_resource type="Texture2D" uid="uid://dl2o2iim3t1u0" path="res://PuppetGame_SkyBox_noHills_checkeredFloor.jpg" id="1_8w6uv"]
+[ext_resource type="Script" path="res://death_area.gd" id="2_44vfv"]
+[ext_resource type="Script" path="res://UI.gd" id="3_qo3hm"]
+[ext_resource type="PackedScene" uid="uid://b2f6s3n6gmago" path="res://puppet.tscn" id="4_o8jse"]
+[ext_resource type="Script" path="res://puppet_camera.gd" id="5_oy2w5"]
+[ext_resource type="Texture2D" uid="uid://rf2ysp2aug6n" path="res://white-circle-free-png.webp" id="6_25dte"]
+[ext_resource type="FontFile" uid="uid://dbpbfdfhh41xf" path="res://Popcat.otf" id="7_rljis"]
+[ext_resource type="PackedScene" path="res://BlobCameraQuad.tscn" id="9_xu1nb"]
+[ext_resource type="Script" path="res://goo_balls.gd" id="10_owjtq"]
+[ext_resource type="PackedScene" uid="uid://c4fq6f1bj6cxo" path="res://MapObjects/bowl.tscn" id="11_35df6"]
+[ext_resource type="Material" path="res://new_blobs_mat.tres" id="11_igi0q"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qg3wy"]
-panorama = ExtResource("1_kt8l3")
+panorama = ExtResource("1_8w6uv")
 
 [sub_resource type="Sky" id="Sky_gcvuw"]
 sky_material = SubResource("PanoramaSkyMaterial_qg3wy")
@@ -55,13 +55,13 @@ shadow_enabled = true
 
 [node name="DeathArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -54.1909, 0)
-script = ExtResource("2_u7wbd")
+script = ExtResource("2_44vfv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DeathArea"]
 shape = SubResource("BoxShape3D_hna23")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-script = ExtResource("7_ftnhu")
+script = ExtResource("3_qo3hm")
 
 [node name="Puppet1Viewport" type="SubViewportContainer" parent="CanvasLayer"]
 offset_right = 640.0
@@ -75,7 +75,7 @@ screen_space_aa = 1
 size = Vector2i(640, 720)
 render_target_update_mode = 4
 
-[node name="Puppet1" parent="CanvasLayer/Puppet1Viewport/SubViewport" node_paths=PackedStringArray("face_cam", "blob_combiner") groups=["p1"] instance=ExtResource("8_yjl3p")]
+[node name="Puppet1" parent="CanvasLayer/Puppet1Viewport/SubViewport" node_paths=PackedStringArray("face_cam", "blob_combiner") groups=["p1"] instance=ExtResource("4_o8jse")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 15, 0, 15)
 p1 = true
 puppet_mat = SubResource("StandardMaterial3D_3ht0r")
@@ -89,7 +89,7 @@ top_level = true
 collision_mask = 5
 shape = SubResource("SphereShape3D_vchys")
 spring_length = 5.0
-script = ExtResource("9_fri4h")
+script = ExtResource("5_oy2w5")
 
 [node name="Camera3D" type="Camera3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/SpringArm3D"]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 10, 1, 10)
@@ -115,7 +115,7 @@ screen_space_aa = 1
 size = Vector2i(640, 720)
 render_target_update_mode = 4
 
-[node name="Puppet2" parent="CanvasLayer/Puppet2Viewport/SubViewport" node_paths=PackedStringArray("face_cam", "blob_combiner") instance=ExtResource("8_yjl3p")]
+[node name="Puppet2" parent="CanvasLayer/Puppet2Viewport/SubViewport" node_paths=PackedStringArray("face_cam", "blob_combiner") instance=ExtResource("4_o8jse")]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -15, 0, -15)
 puppet_mat = SubResource("StandardMaterial3D_g35uv")
 forward_input = "hand_up"
@@ -132,7 +132,7 @@ top_level = true
 collision_mask = 5
 shape = SubResource("SphereShape3D_vchys")
 spring_length = 5.0
-script = ExtResource("9_fri4h")
+script = ExtResource("5_oy2w5")
 
 [node name="Camera3D" type="Camera3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/SpringArm3D"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -10, 2, -10)
@@ -152,7 +152,7 @@ offset_left = 950.0
 offset_top = 387.0
 offset_right = 1280.0
 offset_bottom = 717.0
-texture = ExtResource("11_iln5e")
+texture = ExtResource("6_25dte")
 expand_mode = 3
 stretch_mode = 4
 
@@ -173,7 +173,7 @@ offset_left = -1.0
 offset_top = 387.0
 offset_right = 399.0
 offset_bottom = 717.0
-texture = ExtResource("11_iln5e")
+texture = ExtResource("6_25dte")
 expand_mode = 3
 stretch_mode = 4
 
@@ -198,7 +198,7 @@ offset_right = -256.205
 offset_bottom = 751.0
 grow_horizontal = 2
 theme_override_constants/outline_size = 10
-theme_override_fonts/normal_font = ExtResource("12_mqt2r")
+theme_override_fonts/normal_font = ExtResource("7_rljis")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center]0 pts[/center]"
@@ -213,7 +213,7 @@ offset_right = 646.0
 offset_bottom = 739.0
 grow_horizontal = 2
 theme_override_constants/outline_size = 10
-theme_override_fonts/normal_font = ExtResource("12_mqt2r")
+theme_override_fonts/normal_font = ExtResource("7_rljis")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center]0 pts[/center]"
@@ -254,7 +254,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
-theme_override_fonts/normal_font = ExtResource("12_mqt2r")
+theme_override_fonts/normal_font = ExtResource("7_rljis")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
 text = "[center]60"
@@ -277,7 +277,7 @@ pivot_offset = Vector2(423, 63)
 size_flags_horizontal = 4
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 65
-theme_override_fonts/normal_font = ExtResource("12_mqt2r")
+theme_override_fonts/normal_font = ExtResource("7_rljis")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center]Hello"
@@ -286,14 +286,15 @@ text = "[center]Hello"
 process_mode = 3
 wait_time = 3.0
 
-[node name="BlobCameraQuad" parent="." instance=ExtResource("7_1f2b3")]
+[node name="BlobCameraQuad" parent="." instance=ExtResource("9_xu1nb")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 
 [node name="GooBalls" type="Node3D" parent="."]
-script = ExtResource("11_fjwn1")
-mat = ExtResource("12_mgngg")
+script = ExtResource("10_owjtq")
+mat = ExtResource("11_igi0q")
 
-[node name="Bowl" parent="." instance=ExtResource("11_k0ct5")]
+[node name="Bowl" parent="." instance=ExtResource("11_35df6")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
 [connection signal="body_entered" from="DeathArea" to="DeathArea" method="_on_body_entered"]
 [connection signal="timeout" from="CanvasLayer/GameTimer" to="CanvasLayer" method="_on_game_timer_timeout"]

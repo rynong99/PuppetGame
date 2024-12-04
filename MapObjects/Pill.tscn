@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjevtoktqaxdo"]
+
+[ext_resource type="Script" path="res://MapObjects/SelfDestruct.gd" id="1_y2dbw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_03be0"]
+radius = 2.5
+height = 10.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vr8gs"]
+radius = 2.5
+height = 10.0
+
+[node name="Capsule" type="RigidBody3D"]
+script = ExtResource("1_y2dbw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.88046, 16.6506, 0)
+shape = SubResource("CapsuleShape3D_03be0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0467801, -0.412401, 0)
+mesh = SubResource("CapsuleMesh_vr8gs")
+skeleton = NodePath("../..")

@@ -25,21 +25,24 @@ surface_material_override/0 = SubResource("StandardMaterial3D_xydcr")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_gok1r")
 
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+[node name="Food Spawners" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -2.19956)
 script = ExtResource("2_r6sqc")
 
-[node name="Marker3D" type="Marker3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63746, 0, 0.30331)
+[node name="Marker3D" type="Marker3D" parent="Food Spawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0722, 0, -0.125985)
 
-[node name="Marker3D2" type="Marker3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90421, 0, 2.05837)
+[node name="Marker3D2" type="Marker3D" parent="Food Spawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34976, 0, 4.20378)
 
-[node name="Marker3D3" type="Marker3D" parent="Node3D"]
+[node name="Marker3D3" type="Marker3D" parent="Food Spawners"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.23605, 0, 2.05837)
 
-[node name="Marker3D4" type="Marker3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.761336, 0, 4.17828)
+[node name="Marker3D4" type="Marker3D" parent="Food Spawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.22217, 0, 4.17828)
 
-[node name="Marker3D5" type="Marker3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28779, 0, 1.22754)
+[node name="Marker3D5" type="Marker3D" parent="Food Spawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28779, 0, 0.101972)
+
+[node name="Marker3D6" type="Marker3D" parent="Food Spawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.41577, 0, 2.04899)

@@ -56,8 +56,7 @@ func _on_game_timer_timeout():
 	var tween = create_tween()
 	tween.tween_property(event_text, "scale", Vector2(1, 1), 0.5).set_trans(Tween.TRANS_ELASTIC)
 	await tween.finished
-	#get_tree().paused = true
-	$RestartTimer.start(3)
+	#get_tree().paused = true	$RestartTimer.start(3)
 	#timer.set_process(true)
 	#add_child(timer)
 	#timer.start(3)
