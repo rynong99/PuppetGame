@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://ciksdqmy20pp3"]
+
+[ext_resource type="Script" path="res://MapObjects/SelfDestruct.gd" id="1_hh5ko"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_qy0qq"]
+radius = 2.5
+height = 5.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_n8hlx"]
+radius = 2.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_k37c4"]
+size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eijp2"]
+size = Vector3(5, 5, 5)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vr8gs"]
+radius = 2.5
+height = 10.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_03be0"]
+radius = 2.5
+height = 10.0
+
+[node name="FoodDrop" type="Node3D"]
+script = ExtResource("1_hh5ko")
+
+[node name="Sphere" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.72532, 13.4012, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sphere"]
+mesh = SubResource("SphereMesh_qy0qq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sphere"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0633907, 0, 0)
+shape = SubResource("SphereShape3D_n8hlx")
+
+[node name="Cube" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube"]
+mesh = SubResource("BoxMesh_k37c4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube"]
+shape = SubResource("BoxShape3D_eijp2")
+
+[node name="Capsule" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Capsule"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.92724, 16.2382, 0)
+mesh = SubResource("CapsuleMesh_vr8gs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Capsule"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.88046, 16.6506, 0)
+shape = SubResource("CapsuleShape3D_03be0")

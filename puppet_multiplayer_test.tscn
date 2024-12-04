@@ -1,7 +1,6 @@
-[gd_scene load_steps=35 format=4 uid="uid://cen4012x18p6o"]
+[gd_scene load_steps=33 format=4 uid="uid://cen4012x18p6o"]
 
 [ext_resource type="PackedScene" uid="uid://b2f6s3n6gmago" path="res://puppet.tscn" id="1_axc77"]
-[ext_resource type="Texture2D" uid="uid://debmyeuopxq0h" path="res://test2/PNG/Dark/texture_01.png" id="2_erkdv"]
 [ext_resource type="Script" path="res://puppet_camera.gd" id="2_s4678"]
 [ext_resource type="Material" uid="uid://bx2jtegstbjmr" path="res://blobs/goo_test.tres" id="3_laxql"]
 [ext_resource type="Shader" path="res://blobs/goop.gdshader" id="4_bcbim"]
@@ -12,7 +11,7 @@
 [ext_resource type="Script" path="res://collectable_spawner.gd" id="8_7m7aj"]
 [ext_resource type="Texture2D" uid="uid://rf2ysp2aug6n" path="res://white-circle-free-png.webp" id="9_qqpmc"]
 [ext_resource type="FontFile" uid="uid://dbpbfdfhh41xf" path="res://Popcat.otf" id="10_pomp8"]
-[ext_resource type="Script" path="res://start_instructions.gd" id="13_03ds4"]
+[ext_resource type="PackedScene" uid="uid://c4fq6f1bj6cxo" path="res://MapObjects/bowl.tscn" id="12_v7a35"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjvbl"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -93,10 +92,6 @@ shader_parameter/blobs = PackedVector4Array(0, 0.5, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 
 shader_parameter/noiseNorm = SubResource("NoiseTexture2D_b4md1")
 shader_parameter/iridescenceNoise = SubResource("NoiseTexture2D_b0lim")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lacyn"]
-albedo_texture = ExtResource("2_erkdv")
-uv1_triplanar = true
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ht0r"]
 albedo_color = Color(0.914941, 0.3671, 0.373832, 1)
 
@@ -121,12 +116,13 @@ viewport_path = NodePath("CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/FaceVi
 viewport_path = NodePath("CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/FaceViewport2")
 
 [node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.58814, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bwckx")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
 [node name="DeathArea" type="Area3D" parent="."]
@@ -146,48 +142,6 @@ visible = false
 mesh = SubResource("CylinderMesh_wv0tg")
 surface_material_override/0 = SubResource("ShaderMaterial_ho5jg")
 script = ExtResource("7_8j730")
-
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
-transform = Transform3D(0.6, 0, 0, 0, 0.3, 0, 0, 0, 0.6, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_lacyn")
-use_collision = true
-
-[node name="FloorBox" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
-use_collision = true
-size = Vector3(142, 8, 119)
-
-[node name="Wall1" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40, 12, -15)
-use_collision = true
-size = Vector3(50, 26, 2)
-
-[node name="Wall2" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40, 12, 15)
-use_collision = true
-size = Vector3(50, 26, 2)
-
-[node name="Wall3" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 49)
-use_collision = true
-size = Vector3(82, 26, 20)
-
-[node name="Wall4" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, -49)
-use_collision = true
-size = Vector3(82, 26, 20)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 6.5, 15.5)
-size = Vector3(20, 14, 51)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.0007, 6.16725, -15.0035)
-size = Vector3(20, 15, 50)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0886, 0)
-size = Vector3(13, 23.8228, 15)
 
 [node name="CollectableSpawns" type="Node3D" parent="."]
 script = ExtResource("8_7m7aj")
@@ -255,14 +209,14 @@ script = ExtResource("2_s4678")
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 10, 1, 10)
 
 [node name="BlobCamMesh" type="MeshInstance3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/SpringArm3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.65529, 3.74607, 14.1472)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0104, 32.6177, -46.7856)
 visible = false
 mesh = SubResource("SphereMesh_8b54o")
 surface_material_override/0 = ExtResource("3_laxql")
 script = ExtResource("4_ti1an")
 
 [node name="BlobCamMesh2" type="MeshInstance3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/SpringArm3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.65529, 3.74607, 14.1472)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0104, 32.6177, -46.7856)
 visible = false
 mesh = SubResource("SphereMesh_8b54o")
 surface_material_override/0 = SubResource("ShaderMaterial_ho5jg")
@@ -277,7 +231,7 @@ render_target_update_mode = 4
 cull_mask = 1048573
 
 [node name="BlobCamMesh" type="MeshInstance3D" parent="CanvasLayer/Puppet1Viewport/SubViewport/Puppet1/FaceViewport1/FaceCam"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.28824, 4.74607, -3.29534)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.1105, 33.6177, 31.0542)
 visible = false
 mesh = SubResource("SphereMesh_8sbmt")
 surface_material_override/0 = ExtResource("3_laxql")
@@ -320,14 +274,14 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 compositor = SubResource("Compositor_nh02e")
 
 [node name="BlobCamMesh" type="MeshInstance3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/SpringArm3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.65529, 2.74607, 14.1371)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0104, 31.6177, 75.0698)
 visible = false
 mesh = SubResource("SphereMesh_8b54o")
 surface_material_override/0 = ExtResource("3_laxql")
 script = ExtResource("4_ti1an")
 
 [node name="BlobCamMesh2" type="MeshInstance3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/SpringArm3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.65529, 2.74607, 14.1371)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0104, 31.6177, 75.0698)
 visible = false
 mesh = SubResource("SphereMesh_8b54o")
 surface_material_override/0 = SubResource("ShaderMaterial_ho5jg")
@@ -342,7 +296,7 @@ render_target_update_mode = 4
 cull_mask = 1048573
 
 [node name="BlobCamMesh" type="MeshInstance3D" parent="CanvasLayer/Puppet2Viewport/SubViewport/Puppet2/FaceViewport2/FaceCam"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.28824, 4.74607, -3.29534)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.1105, 33.6177, 31.0542)
 visible = false
 mesh = SubResource("SphereMesh_8sbmt")
 surface_material_override/0 = SubResource("ShaderMaterial_ho5jg")
@@ -475,59 +429,7 @@ theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center]Hello"
 
-[node name="StartInstructions" type="ColorRect" parent="CanvasLayer"]
-process_mode = 2
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -267.0
-offset_top = -304.0
-offset_right = 267.0
-offset_bottom = 304.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("13_03ds4")
-
-[node name="PauseTitle" type="RichTextLabel" parent="CanvasLayer/StartInstructions"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -423.0
-offset_top = -275.0
-offset_right = 423.0
-offset_bottom = -25.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(423, 63)
-size_flags_horizontal = 4
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 65
-theme_override_fonts/normal_font = ExtResource("10_pomp8")
-theme_override_font_sizes/normal_font_size = 100
-bbcode_enabled = true
-text = "[center]Yuppin Yuppits"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/StartInstructions"]
-layout_mode = 0
-offset_left = 39.0
-offset_top = 319.0
-offset_right = 494.0
-offset_bottom = 551.0
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 20
-text = "-Wiggle back and forth to march forward
--Lean right and left to turn
--Spin To fly
--Lean Forward to Vomit and take away your opponents points
-GOAL: Collect the letters of the alphabet soup
-
-Lean forward to start the game"
+[node name="Bowl" parent="CanvasLayer" instance=ExtResource("12_v7a35")]
 
 [connection signal="body_entered" from="DeathArea" to="DeathArea" method="_on_body_entered"]
 [connection signal="timeout" from="CanvasLayer/GameTimer" to="CanvasLayer" method="_on_game_timer_timeout"]

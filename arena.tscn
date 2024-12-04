@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg44o2vigt7uk"]
+
+[ext_resource type="PackedScene" uid="uid://hedqcacmniyr" path="res://MapObjects/arena.blend" id="1_1g1oy"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_or4i2"]
+points = PackedVector3Array(1.17206, -1.86142, 0.146228, -1.21647, -3.23652, -0.111446, -1.21857, -3.24016, 0.0836452, -0.944225, 0.896683, 0.338776, 0.0181057, 0.83375, -1.00905, 0.408696, -3.23826, -1.15221, 0.279016, -3.24093, 1.19105, 0.713222, 0.867139, 0.713222, 0.842177, 0.873123, -0.552907, -0.864524, -2.41656, -0.864524, -0.487823, -2.04067, 1.09133, 1.18497, -3.23041, -0.305509, -0.237397, 0.886865, 0.975637, -0.87423, 0.8828, -0.491771, 0.985962, -3.22128, 0.727971, -0.882609, -3.21576, 0.854637, -0.434498, -3.22758, -1.14637, 0.982657, 0.901361, 0.21101, 0.710772, -2.4169, -0.990754, -0.491955, 0.882599, -0.874146, -0.753249, 0.900687, 0.661014, 0.211011, 0.901366, 0.98266, 0.46962, 0.906644, -0.884289, 0.649125, -2.35619, 1.02827, -1.12758, -2.36507, 0.46317, -1.20072, -2.4393, -0.238414, -0.238414, -2.4393, -1.20072, 1.03838, -2.9425, -0.683759, 0.975639, 0.886869, -0.237397, -1.00905, 0.83375, 0.0181057, -0.305508, -3.23041, 1.18496, 1.172, -2.95136, 0.40255)
+
+[node name="arena" instance=ExtResource("1_1g1oy")]
+
+[node name="StaticBody3D" parent="Cylinder" index="0"]
+collision_layer = 7
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Cylinder/StaticBody3D" index="0"]
+transform = Transform3D(-5, 0, 0, 0, -5, 0, 0, 0, -5, 0, 0, 0)
+top_level = true
+shape = SubResource("ConvexPolygonShape3D_or4i2")
+
+[node name="CollisionShape3D" parent="Cylinder/StaticBody3D" index="1"]
+transform = Transform3D(-5, 0, 0, 0, -5, 0, 0, 0, -5, 0, 0, 0)
+top_level = true
